@@ -22,60 +22,61 @@
             background-color: coral;
         }
 
-        .hidden {
-            display: none;
+        .hidden{
+            display:none;
         }
     </style>
 </head>
 <body>
-<input type="hidden" id="hid-url"/>
-<div class="" style="margin-bottom: 50px;"></div>
-<div class="center">
-    <input id="start" type="button" value="Start" class="txt" onclick="start();"/>
-</div>
-<div></div>
-<div class="center hidden">
-    <input id="pit7" type="text" readonly="readonly" class="pit txt p1-back"/>
-    <input id="pit6" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit5" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit4" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit3" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit2" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit1" type="text" readonly="readonly" class="pit txt" value="6"/>
-</div>
-<div class="center hidden">
-    <input id="pit8" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit9" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit10" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit11" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit12" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit13" type="text" readonly="readonly" class="pit txt" value="6"/>
-    <input id="pit14" type="text" readonly="readonly" class="pit txt p2-back"/>
-</div>
-<div class="center hidden">
-    <input id="pitNumber" type="text"/>
-    <input type="button" value="Submit" onclick="submit();"/>
-</div>
+    <input type="hidden" id="hid-url"/>
+    <div class="" style="margin-bottom: 50px;"></div>
+    <div class="center">
+        <input id="start" type="button" value="Start" class="txt" onclick="start();" />
+    </div>
+    <div></div>
+    <div class="center hidden">
+        <input id="pit7" type="text" readonly="readonly" class="pit txt p1-back" />
+        <input id="pit6" type="text" readonly="readonly" class="pit txt" value="6" />
+        <input id="pit5" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit4" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit3" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit2" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit1" type="text" readonly="readonly" class="pit txt" value="6"/>
+    </div>
+    <div class="center hidden">
+        <input id="pit8" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit9" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit10" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit11" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit12" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit13" type="text" readonly="readonly" class="pit txt" value="6"/>
+        <input id="pit14" type="text" readonly="readonly" class="pit txt p2-back" />
+    </div>
+    <div class="center hidden">
+        <input id="pitNumber" type="text" />
+        <input type="button" value="Submit" onclick="submit();" />
+    </div>
 
 </body>
 </html>
-<script>
+<script  >
 
     $(document).ready(function () {
-        $('#pitNumber').bind("keydown", function (e) {
-            if (e.keyCode == 13) {
-                submit();
-            }
-        });
+          $('#pitNumber').bind("keydown",function(e){
+              if (e.keyCode == 13) {
+                  submit();
+             }
+         });
 
     });
 
     var start = function () {
 
         $.ajax({
-            url: "http://localhost:8087/api/v1/games",
-            type: "POST",
-            data: {},
+            url: "http://localhost:8087/api/v1/games/join/1",
+            type: "GET",
+            data: {
+            },
             dataType: "html",
             //dataType: "json",
             success: function (resp) {
@@ -84,7 +85,7 @@
                 var obj = JSON.parse(resp);
                 console.log(obj.url);
                 $("#hid-url").val(obj.url);
-                var url = $("#hid-url").val();
+                var url =  $("#hid-url").val();
                 //console.log(url);
                 //setTextBoxes(resp);
             },
@@ -113,7 +114,7 @@
                 };
                 //console.log(resp.url);
                 $("#hid-url").val(resp.url);
-                var url = $("#hid-url").val();
+                var url =  $("#hid-url").val();
                 //console.log(url);
 
                 setTextBoxes(resp);
@@ -141,7 +142,7 @@
         $("#pit12").val(resp.status[12]);
         $("#pit13").val(resp.status[13]);
         $("#pit14").val(resp.status[14]);
-
+        
     };
 
     var submit = function () {
@@ -150,15 +151,16 @@
         var postUrl = url + "/pits/" + pitNumber;
         console.log(postUrl);
 
-        $.ajax({
+         $.ajax({
             url: postUrl,
             type: "PUT",
-            data: {},
+            data: {
+            },
             dataType: "html",
             //dataType: "json",
             success: function (resp) {
                 console.log('submit successful');
-                setTextBoxes(resp);
+                 setTextBoxes(resp);
                 $("#pitNumber").val('');
             },
             error: function () {

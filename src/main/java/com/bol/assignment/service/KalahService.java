@@ -10,6 +10,16 @@ public interface     KalahService {
      */
     Board newGame();
 
+
+    /**
+     * Join to a game
+     * @param gameId
+     * @return an existing instance of Board
+     */
+    Board joinToGame(int gameId);
+
+
+
     /**
      * Performs a move from selected pit.
      * @param gameId identifier of the game

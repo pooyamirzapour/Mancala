@@ -18,7 +18,7 @@ import java.io.Serializable;
 @ApiModel(description = "This class is used to return a response message of KalahGame")
 @Data
 @Builder
-public class KalahGameMsg implements Serializable {
+public class JoinKalahGameMsg implements Serializable {
     @ApiModelProperty(notes = "Unique identifier of the game.", example = "1")
     @JsonProperty("id")
     private int gameId;

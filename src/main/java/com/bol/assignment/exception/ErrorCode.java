@@ -3,7 +3,7 @@ package com.bol.assignment.exception;
 import org.springframework.http.HttpStatus;
 
 /**
- * Enumeration of Kalah game error codes.
+ * Enumeration of error codes.
  * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
  */
 

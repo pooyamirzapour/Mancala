@@ -8,7 +8,6 @@ import com.bol.assignment.repository.BoardRepository;
 import com.bol.assignment.util.GameUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -28,7 +27,6 @@ public class KalahServiceImpl implements KalahService {
         Board board = new Board();
         Player player_one = new Player(GameUtil.PLAYER_ONE);
         Player player_two = new Player(GameUtil.PLAYER_TWO);
-        log.info("turn is for player one");
         player_one.setTurn(true);
         player_two.setTurn(false);
         board.setPlayerOne(player_one);
@@ -39,7 +37,15 @@ public class KalahServiceImpl implements KalahService {
         return board;
     }
 
-    // continuing kala game by moving a pit
+    @Override
+    public Board joinToGame(int gameId) {
+        Optional<Board> optionalBoard = boardRepository.findById(gameId);
+        if (optionalBoard.isEmpty())
+            throw new ServiceException(ErrorCode.GAME_NOT_FOUND,String.valueOf(gameId));
+
+        return optionalBoard.get();
+    }
+
     @Override
     public Board move(int gameId, int pitId) {
         log.info(String.format("Start moving. gameId: %d , pitId: %d ", gameId, pitId));
@@ -89,7 +95,7 @@ public class KalahServiceImpl implements KalahService {
     }
 
     private void validateNewMoveRequest(Optional<Board> gameOptional, int gameId, int pitId) {
-            if (!gameOptional.isPresent()) {
+        if (!gameOptional.isPresent()) {
             throw new ServiceException(ErrorCode.GAME_NOT_FOUND, String.valueOf(gameId));
         }
 

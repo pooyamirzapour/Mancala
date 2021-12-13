@@ -2,6 +2,7 @@ package com.bol.assignment.controller;
 
 import com.bol.assignment.model.Board;
 import com.bol.assignment.msg.GameStatusMsg;
+import com.bol.assignment.msg.JoinKalahGameMsg;
 import com.bol.assignment.msg.KalahGameMsg;
 import com.bol.assignment.service.KalahService;
 import io.swagger.annotations.Api;
@@ -14,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Rest controller class to start a new game and move on the game.
@@ -44,12 +47,23 @@ public class KalahController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping( value="/join/{gameId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("Join to a game Kalah game.")
+    public JoinKalahGameMsg joinToGame(@NotNull @PathVariable("gameId") int gameId) {
+        log.info("Join to a new game request received");
+        Board board = kalahService.joinToGame(gameId);
+        JoinKalahGameMsg kalahGameMsg = JoinKalahGameMsg.builder().gameId(board.getId()).build();
+        kalahGameMsg.setUrl(getGameUrl(kalahGameMsg.getGameId()));
+        log.info("Join to a game successfully done. gameId: %d , url: %s", kalahGameMsg.getGameId(), kalahGameMsg.getUrl());
+        return kalahGameMsg;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{gameId}/pits/{pitId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("Performs a move from a specific pit and returns the latest status of the game.")
-    @CrossOrigin
     public GameStatusMsg move(
-            @ApiParam("Identifier of the game.It Cannot be empty.") @PathVariable("gameId") int gameId,
-            @ApiParam("Identifier of the selected pit.It Cannot be empty or be a kalah") @PathVariable("pitId") int pitId) {
+            @ApiParam("Identifier of the game.It Cannot be empty.") @NotNull @PathVariable("gameId") int gameId,
+            @ApiParam("Identifier of the selected pit.It Cannot be empty or be a kalah") @NotNull @PathVariable("pitId") int pitId) {
         log.info(String.format("A move is requested with these parameters: gameId: %d , pitId: %d ", gameId, pitId));
         Board board = kalahService.move(gameId, pitId);
         GameStatusMsg gameStatusResponse = board.getGameStatusMsg();
