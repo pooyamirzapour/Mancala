@@ -24,7 +24,7 @@ public class KalahServiceImpl implements KalahService {
     private BoardRepository boardRepository;
     private MoveRuleService moveRuleService;
     private GameEmitterRepository gameEmitterRepository;
-    private GameUtil gameUtil;
+    private NotificationService notificationService;
 
     @Override
     public Board newGame() {
@@ -56,29 +56,10 @@ public class KalahServiceImpl implements KalahService {
         }
 
         gameEmitterRepository.put(gameId, sseEmitter);
-        sendToClients(optionalBoard.get());
+        notificationService.sendToClients(optionalBoard.get());
 
     }
 
-    private SseEmitter sendToClients(Board board) {
-        if (Objects.nonNull(gameEmitterRepository.get(board.getId()))) {
-            gameEmitterRepository.get(board.getId())
-                    .forEach(mySseEmitter -> {
-                        try {
-                            GameStatusMsg gameResponse = board.getGameStatusMsg();
-                            gameResponse.setUrl(gameUtil.getGameUrl(gameResponse.getGameId()));
-
-                            log.info(gameResponse.toString());
-                            mySseEmitter.send(gameResponse);
-                        } catch (Throwable e) {
-                            log.info("IO exception while emitting the board.");
-                            mySseEmitter.completeWithError(e);
-                        }
-                    });
-            return gameEmitterRepository.get(board.getId()).get(0);
-        }
-        return null;
-    }
 
     @Override
     public Board move(int gameId, int pitId) {
@@ -92,7 +73,7 @@ public class KalahServiceImpl implements KalahService {
         moveRuleService.setTurn(board);
         board = boardRepository.save(board);
 
-        sendToClients(board);
+        notificationService.sendToClients(board);
 
         log.info(String.format("The move request successfully processed. gameId: %d , pitId: %d ", gameId, pitId));
         return board;
