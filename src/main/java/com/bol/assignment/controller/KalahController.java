@@ -1,8 +1,6 @@
 package com.bol.assignment.controller;
 
 import com.bol.assignment.model.Board;
-import com.bol.assignment.msg.GameStatusMsg;
-import com.bol.assignment.msg.JoinGameStatusMsg;
 import com.bol.assignment.msg.KalahGameMsg;
 import com.bol.assignment.service.KalahService;
 import com.bol.assignment.util.GameUtil;
@@ -16,13 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
 /**
- * Rest controller class to start a new game and move on the game.
+ * Rest controller class to start a new game and move on the game.*
  *
  * @author Pooya Mirzapour (Pooyamirzapour@gmail.com)
  */
@@ -35,6 +32,7 @@ import java.io.IOException;
 public class KalahController {
 
     private KalahService kalahService;
+    private GameUtil gameUtil;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +42,7 @@ public class KalahController {
         log.info("A new game request received");
         Board board = kalahService.newGame();
         KalahGameMsg kalahGameMsg = KalahGameMsg.builder().gameId(board.getId()).build();
-        kalahGameMsg.setUrl(GameUtil.getGameUrl(kalahGameMsg.getGameId()));
+        kalahGameMsg.setUrl(gameUtil.getGameUrl(kalahGameMsg.getGameId()));
         log.info("A new game successfully started. gameId: %d , url: %s", kalahGameMsg.getGameId(), kalahGameMsg.getUrl());
         return kalahGameMsg;
     }
@@ -55,8 +53,8 @@ public class KalahController {
     @CrossOrigin
     public SseEmitter joinToGame(@NotNull @PathVariable("gameId") int gameId) throws IOException {
         log.info("Join to a new game request received");
-        SseEmitter sseEmitter=new SseEmitter();
-        kalahService.   joinToGame(gameId,sseEmitter);
+        SseEmitter sseEmitter = new SseEmitter();
+        kalahService.joinToGame(gameId, sseEmitter);
         log.info("Join to a game successfully done. gameId: %d ", gameId);
         return sseEmitter;
     }
@@ -69,13 +67,9 @@ public class KalahController {
             @ApiParam("Identifier of the selected pit.It Cannot be empty or be a kalah") @NotNull @PathVariable("pitId") int pitId) throws IOException {
         log.info(String.format("A move is requested with these parameters: gameId: %d , pitId: %d ", gameId, pitId));
         Board board = kalahService.move(gameId, pitId);
-//        GameStatusMsg gameStatusResponse = board.getGameStatusMsg();
-//        gameStatusResponse.setUrl(GameUtil.getGameUrl(gameStatusResponse.getGameId()));
         log.info(String.format("The move request successfully processed. gameId: %d , pitId: %d ", gameId, pitId));
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
-
 
 
 }

@@ -8,11 +8,17 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * Exception Handler class for creating proper message and log.
+ *
+ * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
+ */
 @Slf4j
 @ControllerAdvice
 public class ExceptionHandlers extends ResponseEntityExceptionHandler {
     /**
      * Handles all errors that are in the form of a ServiceException.class
+     *
      * @param exception the cause
      * @return an instance of ErrorMsg with an appropriate status code
      */
@@ -29,6 +35,7 @@ public class ExceptionHandlers extends ResponseEntityExceptionHandler {
 
     /**
      * Handles all errors that are in the form of a Exception.class
+     *
      * @param exception the cause
      * @return an instance of ErrorMsg with an appropriate status code
      */

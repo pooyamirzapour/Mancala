@@ -13,6 +13,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Collections;
 
 /**
+ * Swagger config class
+ *
  * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
  */
 @Configuration

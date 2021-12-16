@@ -6,6 +6,11 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 
+/**
+ * Player is an entity class hold players.
+ * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
+ */
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -14,7 +19,7 @@ public class Player extends BaseEntity {
     private int startPitNumber;
 
     /**
-     * Constructs a new exception with the specified error code and detail message.
+     * Constructs a new player.
      * @param start the player index
      */
     public Player(int start) {

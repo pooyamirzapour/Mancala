@@ -12,11 +12,16 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * MoveRuleService interface provides and categorizes a move into some methods.
+ *
+ * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
+ */
 @Service
 @Slf4j
 public class MoveRuleServiceImpl implements MoveRuleService {
     @Override
-    public Board replace(Board board, int pitId) {
+    public void replace(Board board, int pitId) {
         Player currentPlayer = board.getCurrentPlayer();
         Map<Integer, Integer> pitsMap = board.getPitsMap();
         int currentPitId = pitId;
@@ -30,45 +35,40 @@ public class MoveRuleServiceImpl implements MoveRuleService {
         }
         board.setLastPlacedPit(currentPitId);
 
-        return board;
     }
 
     @Override
-    public Board collectFront(Board board) {
-        if (canCatchOpponentSideStones(board, board.getLastPlacedPit())) {
-            int oppositeSidePitId = getOppositeSidePitId(board.getLastPlacedPit());
+    public void collectFront(Board board) {
+        if (canCatchFrontStones(board, board.getLastPlacedPit())) {
+            int oppositeSidePitId = getFrontPitId(board.getLastPlacedPit());
             int ownKalahPitId = getCurrentKalahPitId(board.getCurrentPlayer());
             board.getPitsMap().put(ownKalahPitId, board.getPitsMap().get(ownKalahPitId) + board.getPitsMap().get(board.getLastPlacedPit()) + board.getPitsMap().get(oppositeSidePitId));
             board.getPitsMap().put(board.getLastPlacedPit(), 0);
             board.getPitsMap().put(oppositeSidePitId, 0);
             log.info(String.format("Player catches stones from pit %d and %d", board.getLastPlacedPit(), oppositeSidePitId));
         }
-        return board;
     }
 
     @Override
-    public Board collectAll(Board board) {
+    public void collectAll(Board board) {
         if (gameIsOver(board.getPitsMap(), board.getCurrentPlayer())) {
             log.info(String.format("Game is over with gameId: %d", board));
             board.setIsOver(true);
             gatherOpponentRemainingStone(board);
         }
-        return board;
     }
 
     @Override
-    public Board setTurn(Board board) {
+    public void setTurn(Board board) {
         if (board.getLastPlacedPit() != getCurrentKalahPitId(board.getCurrentPlayer())) {
             if (board.getCurrentPlayer().getStartPitNumber() == GameUtil.STARTED_PIT_FOR_PLAYER_ONE) {
                 board.getPlayerOne().setTurn(false);
                 board.getPlayerTow().setTurn(true);
-            }
-            else if (board.getCurrentPlayer().getStartPitNumber() == GameUtil.STARTED_PIT_FOR_PLAYER_TWO) {
+            } else if (board.getCurrentPlayer().getStartPitNumber() == GameUtil.STARTED_PIT_FOR_PLAYER_TWO) {
                 board.getPlayerOne().setTurn(true);
                 board.getPlayerTow().setTurn(false);
             }
         }
-        return board;
     }
 
     @Override
@@ -107,10 +107,9 @@ public class MoveRuleServiceImpl implements MoveRuleService {
     }
 
     private int getNextPitId(int currentPitId, Player currentPlayer) {
-        // moving in counter clockwise direction
         int nextPitId = (currentPitId % GameUtil.TOTAL_PIT_COUNT) + 1;
         if (nextPitId != getCurrentKalahPitId(currentPlayer)
-                && isKalah(nextPitId)) // is opponent Kalah position
+                && isKalah(nextPitId))
             nextPitId = (nextPitId % GameUtil.TOTAL_PIT_COUNT) + 1;
         return nextPitId;
     }
@@ -119,14 +118,15 @@ public class MoveRuleServiceImpl implements MoveRuleService {
         return (currentPlayer.getStartPitNumber() + GameUtil.PIT_COUNT);
     }
 
-    private boolean canCatchOpponentSideStones(Board board, int currentPitId) {
+    private boolean canCatchFrontStones(Board board, int currentPitId) {
 
-        int oppositeSidePitId = getOppositeSidePitId(currentPitId);
+        int oppositeSidePitId = getFrontPitId(currentPitId);
         return isOwnPit(currentPitId, board.getCurrentPlayer()) &&
-                board.getPitsMap().get(board.getLastPlacedPit()) == 1 && board.getPitsMap().get(oppositeSidePitId) > 0;
+                board.getPitsMap().get(board.getLastPlacedPit()) == 1 &&
+                board.getPitsMap().get(oppositeSidePitId) > 0;
     }
 
-    private int getOppositeSidePitId(int pitId) {
+    private int getFrontPitId(int pitId) {
         int oppositeSidePitId = GameUtil.TOTAL_PIT_COUNT - pitId;
         return oppositeSidePitId;
     }

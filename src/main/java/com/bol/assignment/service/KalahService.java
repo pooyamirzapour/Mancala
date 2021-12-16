@@ -3,8 +3,10 @@ package com.bol.assignment.service;
 import com.bol.assignment.model.Board;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.io.IOException;
-
+/**
+ * KalahService interface provides some methods to play the game.
+ * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
+ */
 public interface KalahService {
 
     /**
@@ -25,7 +27,7 @@ public interface KalahService {
 
 
     /**
-     * Performs a move from selected pit.
+     * Performs a move from selected pit. It orchestrate the methods from MoveRuleService.
      *
      * @param gameId identifier of the game
      * @param pitId  identifier of the pit

@@ -9,6 +9,11 @@ import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Board is an entity class hold the game last status.
+ * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
+ */
+
 @Data
 @Entity
 public class Board  extends BaseEntity {
