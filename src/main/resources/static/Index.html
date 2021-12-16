@@ -71,6 +71,7 @@
     });
 
     var start = function () {
+        document.getElementById("start").disabled = true;
 
         $.ajax({
             url: "http://localhost:8087/api/v1/games",

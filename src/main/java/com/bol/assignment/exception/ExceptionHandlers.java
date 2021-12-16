@@ -18,7 +18,7 @@ public class ExceptionHandlers extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(ServiceException.class)
     public ResponseEntity<ErrorMsg> handleServiceException(ServiceException exception) {
-        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
         if (exception.getErrorCode().isPresent()) {
             httpStatus = exception.getErrorCode().get().getValue();
         }
@@ -34,7 +34,7 @@ public class ExceptionHandlers extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMsg> handleOtherExceptions(Exception exception) {
-        HttpStatus httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         return new ResponseEntity<>(new ErrorMsg(httpStatus.value(), exception.getMessage()), httpStatus);
     }
 }

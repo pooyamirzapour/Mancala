@@ -34,7 +34,7 @@ public class Swagger2Config {
     private ApiInfo getApiInfo() {
         return new ApiInfo(
                 "6-stone Kalah",
-                "This application is a Java RESTful Web Service that runs a Kalah game",
+                "A Java RESTful Web Service runs a Kalah game",
                 "1.0.0",
                 "",
                 new Contact("Pooya Mirzapour", "https://www.linkedin.com/in/pooya-mirzapour", "pooyamirzapour@gmail.com"),

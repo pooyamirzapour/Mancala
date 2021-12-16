@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+
+<h1>Remote Mancala</h1>
+<div id="result"></div>
+<div id="test"></div>
+
+<script>
+    var sss = function () {
+        let url = 'http://localhost:8087/api/v1/games/join/1';// + document.cookie;
+        var source = new EventSource(url);
+
+        source.onmessage = function (event) {
+            // document.getElementById("pi1-p1").innerHTML = event.data;
+
+            const obj = JSON.parse(event.data);
+
+            document.getElementById("pi1-p1").innerHTML = JSON.stringify(obj.pits[0].stonesCount);
+            document.getElementById("pi2-p1").innerHTML = JSON.stringify(obj.pits[1].stonesCount);
+            document.getElementById("pi3-p1").innerHTML = JSON.stringify(obj.pits[2].stonesCount);
+            document.getElementById("pi4-p1").innerHTML = JSON.stringify(obj.pits[3].stonesCount);
+            document.getElementById("pi5-p1").innerHTML = JSON.stringify(obj.pits[4].stonesCount);
+            document.getElementById("pi6-p1").innerHTML = JSON.stringify(obj.pits[5].stonesCount);
+            document.getElementById("pi7-p1").innerHTML = JSON.stringify(obj.pits[6].stonesCount);
+
+            document.getElementById("pi1-p2").innerHTML = JSON.stringify(obj.pits[7].stonesCount);
+            document.getElementById("pi2-p2").innerHTML = JSON.stringify(obj.pits[8].stonesCount);
+            document.getElementById("pi3-p2").innerHTML = JSON.stringify(obj.pits[9].stonesCount);
+            document.getElementById("pi4-p2").innerHTML = JSON.stringify(obj.pits[10].stonesCount);
+            document.getElementById("pi5-p2").innerHTML = JSON.stringify(obj.pits[11].stonesCount);
+            document.getElementById("pi6-p2").innerHTML = JSON.stringify(obj.pits[12].stonesCount);
+            document.getElementById("pi7-p2").innerHTML = JSON.stringify(obj.pits[13].stonesCount);
+            if(obj.playerTurn !== null)
+            document.getElementById("turn").innerHTML = obj.playerTurn;
+        }
+    }
+</script>
+
+<script>
+    var start = function () {
+        document.getElementById("turn").innerHTML = "PLAYER_ONE";
+        fetch('http://localhost:8087/api/v1/games', {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "Accept": "*/*"
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+                const obj = json;
+                document.cookie = obj.id;
+                javascript:sss();
+            })
+            .catch(err => console.log(err));
+    };
+
+</script>
+
+<script>
+    var move = function () {
+        let url = 'http://localhost:8087/api/v1/games/1/pits/1';// + document.cookie;
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                "player": document.getElementById("turn").innerHTML,
+                "pitNumber": document.getElementById("pitNumber").value
+            }),
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "Accept": "*/*"
+            }
+        })
+            .then(response => response.json())
+            // set variables
+            .then(json => {
+                console.log(json)
+                const obj = json;
+                document.getElementById("pi1-p1").innerHTML = JSON.stringify(obj.pits[0].stonesCount);
+                document.getElementById("pi2-p1").innerHTML = JSON.stringify(obj.pits[1].stonesCount);
+                document.getElementById("pi3-p1").innerHTML = JSON.stringify(obj.pits[2].stonesCount);
+                document.getElementById("pi4-p1").innerHTML = JSON.stringify(obj.pits[3].stonesCount);
+                document.getElementById("pi5-p1").innerHTML = JSON.stringify(obj.pits[4].stonesCount);
+                document.getElementById("pi6-p1").innerHTML = JSON.stringify(obj.pits[5].stonesCount);
+                document.getElementById("pi7-p1").innerHTML = JSON.stringify(obj.pits[6].stonesCount);
+
+                document.getElementById("pi1-p2").innerHTML = JSON.stringify(obj.pits[7].stonesCount);
+                document.getElementById("pi2-p2").innerHTML = JSON.stringify(obj.pits[8].stonesCount);
+                document.getElementById("pi3-p2").innerHTML = JSON.stringify(obj.pits[9].stonesCount);
+                document.getElementById("pi4-p2").innerHTML = JSON.stringify(obj.pits[10].stonesCount);
+                document.getElementById("pi5-p2").innerHTML = JSON.stringify(obj.pits[11].stonesCount);
+                document.getElementById("pi6-p2").innerHTML = JSON.stringify(obj.pits[12].stonesCount);
+                document.getElementById("pi7-p2").innerHTML = JSON.stringify(obj.pits[13].stonesCount);
+                document.getElementById("turn").innerHTML = JSON.stringify(obj.playerTurn);
+            })
+            .catch(err => console.log(err));
+    };
+</script>
+
+<form name="myform">
+    <input type="button" value="start" onclick="javascript:start();    "> <br>
+
+    <label for="fname">player turn:</label>
+    <div id="turn"></div>
+
+    <br>
+    <label for="fname">Pit number:</label>
+    <input type="text" id="pitNumber" name="fname" value=""> <input type="button" value="move"
+                                                                    onclick="javascript:move()"><br>
+
+    <table style="width:100%" border=1>
+
+        <th style="width:15%">
+            <div id="pi7-p2"></div>
+        </th>
+
+        <th style="width:70%">
+            <table style="width:100%" border=1>
+                <tr>
+                    <th>
+                        <div id="pi6-p2"></div>
+                    </th>
+                    <th>
+                        <div id="pi5-p2"></div>
+                    </th>
+                    <th>
+                        <div id="pi4-p2"></div>
+                    </th>
+                    <th>
+                        <div id="pi3-p2"></div>
+                    </th>
+                    <th>
+                        <div id="pi2-p2"></div>
+                    </th>
+                    <th>
+                        <div id="pi1-p2"></div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <div id="pi1-p1"></div>
+                    </th>
+                    <th>
+                        <div id="pi2-p1"></div>
+                    </th>
+                    <th>
+                        <div id="pi3-p1"></div>
+                    </th>
+                    <th>
+                        <div id="pi4-p1"></div>
+                    </th>
+                    <th>
+                        <div id="pi5-p1"></div>
+                    </th>
+                    <th>
+                        <div id="pi6-p1"></div>
+                    </th>
+                </tr>
+
+            </table>
+        </th>
+
+        <!DOCTYPE html>
+        <th style="width:15%">
+            <div id="pi7-p1"></div>
+        </th>
+    </table>
+</form>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.bol.assignment.model;
 
 import com.bol.assignment.msg.GameStatusMsg;
+import com.bol.assignment.msg.JoinGameStatusMsg;
 import com.bol.assignment.util.GameUtil;
 import lombok.Data;
 
@@ -55,6 +56,18 @@ public class Board  extends BaseEntity {
 
     public GameStatusMsg getGameStatusMsg() {
         GameStatusMsg gameStatusMsg = new GameStatusMsg(this.getId());
+        gameStatusMsg.setPitsMap_playerOne(this.getPitsMap());
+
+        if (playerOne.getTurn()) {
+            gameStatusMsg.setPlayerId(this.playerOne.getId());
+        } else {
+            gameStatusMsg.setPlayerId(this.playerTow.getId());
+        }
+        return gameStatusMsg;
+    }
+
+    public JoinGameStatusMsg getJoinGameStatusMsg() {
+        JoinGameStatusMsg gameStatusMsg = new JoinGameStatusMsg(this.getId());
         gameStatusMsg.setPitsMap_playerOne(this.getPitsMap());
 
         if (playerOne.getTurn()) {

@@ -22,112 +22,94 @@
             background-color: coral;
         }
 
-        .hidden{
-            display:none;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <input type="hidden" id="hid-url"/>
-    <div class="" style="margin-bottom: 50px;"></div>
-    <div class="center">
-        <input id="start" type="button" value="Start" class="txt" onclick="start();" />
-    </div>
-    <div></div>
-    <div class="center hidden">
-        <input id="pit7" type="text" readonly="readonly" class="pit txt p1-back" />
-        <input id="pit6" type="text" readonly="readonly" class="pit txt" value="6" />
-        <input id="pit5" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit4" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit3" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit2" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit1" type="text" readonly="readonly" class="pit txt" value="6"/>
-    </div>
-    <div class="center hidden">
-        <input id="pit8" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit9" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit10" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit11" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit12" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit13" type="text" readonly="readonly" class="pit txt" value="6"/>
-        <input id="pit14" type="text" readonly="readonly" class="pit txt p2-back" />
-    </div>
-    <div class="center hidden">
-        <input id="pitNumber" type="text" />
-        <input type="button" value="Submit" onclick="submit();" />
-    </div>
+<input type="hidden" id="hid-url"/>
+<div class="" style="margin-bottom: 50px;"></div>
+<div class="center">
+    <input id="btnStart" type="button" value="start" class="txt" onclick="start();"/>
+</div>
+<div class="center">
+    <input id="joinId" type="text" class="txt"/>
+    <input id="btnJoin" type="button" value="join" class="txt" onclick="join();"/>
+
+</div>
+
+<div></div>
+<div class="center hidden">
+    <input id="pit7" type="text" readonly="readonly" class="pit txt p1-back"/>
+    <input id="pit6" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit5" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit4" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit3" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit2" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit1" type="text" readonly="readonly" class="pit txt" value="6"/>
+</div>
+<div class="center hidden">
+    <input id="pit8" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit9" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit10" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit11" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit12" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit13" type="text" readonly="readonly" class="pit txt" value="6"/>
+    <input id="pit14" type="text" readonly="readonly" class="pit txt p2-back"/>
+</div>
+<div class="center hidden">
+    <input id="pitNumber" type="text"/>
+    <input type="button" value="Submit" onclick="submit();"/>
+    <!--    <input type="button" value="Join" onclick="join();"/>-->
+</div>
 
 </body>
 </html>
-<script  >
+<script>
 
-    $(document).ready(function () {
-          $('#pitNumber').bind("keydown",function(e){
-              if (e.keyCode == 13) {
-                  submit();
-             }
-         });
+    // $(document).ready(function () {
+    //     $('#pitNumber').bind("keydown", function (e) {
+    //         if (e.keyCode == 13) {
+    //             submit();
+    //         }
+    //     });
+    //
+    // });
 
-    });
+    var join = function () {
+        document.getElementById("btnStart").disabled = true;
+        document.getElementById("btnJoin").disabled = true;
+        console.log('join function started');
 
-    var start = function () {
+        let url = 'http://localhost:8087/api/v1/games/join/' + document.cookie;
+        var source = new EventSource(url);
+        console.log("event source")
 
-        $.ajax({
-            url: "http://localhost:8087/api/v1/games/join/1",
-            type: "GET",
-            data: {
-            },
-            dataType: "html",
-            //dataType: "json",
-            success: function (resp) {
-                console.log('start successful');
-                //console.log(resp);
-                var obj = JSON.parse(resp);
-                console.log(obj.url);
-                $("#hid-url").val(obj.url);
-                var url =  $("#hid-url").val();
-                //console.log(url);
-                //setTextBoxes(resp);
-            },
-            error: function () {
-                console.log('error');
-                var resp = {
-                    "id": 1,
-                    "url": "http://localhost:8087/games/1",
-                    "status": {
-                        "1": 1,
-                        "2": 0,
-                        "3": 8,
-                        "4": 8,
-                        "5": 8,
-                        "6": 8,
-                        "7": 2,
-                        "8": 0,
-                        "9": 8,
-                        "10": 7,
-                        "11": 7,
-                        "12": 7,
-                        "13": 7,
-                        "14": 1
-                    },
-                    "playerId": 1
-                };
-                //console.log(resp.url);
-                $("#hid-url").val(resp.url);
-                var url =  $("#hid-url").val();
-                //console.log(url);
+        source.onmessage = function (event) {
+            const obj = JSON.parse(event.data);
+            console.log(obj);
+            var text = event.data
+            $("#hid-url").val(obj.url);
+            var url = $("#hid-url").val();
+            console.log(url);
+            setTextBoxes(text);
+            $('.hidden').show();
 
-                setTextBoxes(resp);
-            }
-        })
+        }
 
-        $('.hidden').show();
+        // source.addEventListener('COMPLETE', function(evt) {
+        //     console.log(evt);
+        //     console.log('close sse');
+        //     source.close();
+        // });
     };
 
+
     var setTextBoxes = function (respStr) {
+        console.log(respStr);
         var resp = JSON.parse(respStr);
         console.log(resp.status[1]);
-        //console.log(resp.status);
         $("#pit1").val(resp.status[1]);
         $("#pit2").val(resp.status[2]);
         $("#pit3").val(resp.status[3]);
@@ -142,54 +124,51 @@
         $("#pit12").val(resp.status[12]);
         $("#pit13").val(resp.status[13]);
         $("#pit14").val(resp.status[14]);
-        
+
     };
 
     var submit = function () {
         var pitNumber = $("#pitNumber").val();
         var url = $("#hid-url").val();
-        var postUrl = url + "/pits/" + pitNumber;
+        var postUrl = 'http://localhost:8087/api/v1/games/1/pits/' + pitNumber;
         console.log(postUrl);
 
-         $.ajax({
-            url: postUrl,
-            type: "PUT",
-            data: {
-            },
-            dataType: "html",
-            //dataType: "json",
-            success: function (resp) {
-                console.log('submit successful');
-                 setTextBoxes(resp);
-                $("#pitNumber").val('');
-            },
-            error: function () {
-                console.log('error');
-                var resp = {
-                    "id": 1,
-                    "url": "http://localhost:63342/games/1",
-                    "status": {
-                        "1": 5,
-                        "2": 6,
-                        "3": 7,
-                        "4": 8,
-                        "5": 9,
-                        "6": 10,
-                        "7": 2,
-                        "8": 0,
-                        "9": 8,
-                        "10": 3,
-                        "11": 4,
-                        "12": 5,
-                        "13": 6,
-                        "14": 7
-                    },
-                    "playerId": 1
-                };
-                setTextBoxes(resp);
-                $("#pitNumber").val('');
+        console.log('s1');
+
+        fetch(postUrl, {
+            method: "POST",
+            body: JSON.stringify({}),
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "Accept": "*/*"
+            }
+        }).then(response => {
+            console.log('s2');
+
+            console.log(response)
+        })
+    };
+
+    var start = function () {
+        document.getElementById("btnStart").disabled = true;
+        document.getElementById("joinId").disabled = true;
+        console.log('start the game')
+        fetch('http://localhost:8087/api/v1/games', {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "Accept": "*/*"
             }
         })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+                const obj = json;
+                console.log(obj.id)
+                document.cookie = obj.id;
+                document.getElementById("joinId").value = obj.id;
+            })
+            .catch(err => console.log(err));
     };
 
 </script>

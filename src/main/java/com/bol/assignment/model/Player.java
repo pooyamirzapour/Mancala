@@ -1,12 +1,14 @@
 package com.bol.assignment.model;
 
 import com.bol.assignment.util.GameUtil;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Entity;
 
 @Data
 @Entity
+@AllArgsConstructor
 public class Player extends BaseEntity {
     private Boolean turn;
     private int startPitNumber;

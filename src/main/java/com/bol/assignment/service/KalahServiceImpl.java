@@ -1,15 +1,19 @@
 package com.bol.assignment.service;
 
+import com.bol.assignment.component.GameEmitterRepository;
 import com.bol.assignment.exception.ErrorCode;
 import com.bol.assignment.exception.ServiceException;
 import com.bol.assignment.model.Board;
 import com.bol.assignment.model.Player;
+import com.bol.assignment.msg.GameStatusMsg;
 import com.bol.assignment.repository.BoardRepository;
 import com.bol.assignment.util.GameUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -34,16 +38,46 @@ public class KalahServiceImpl implements KalahService {
         board.setIsOver(false);
         board = boardRepository.save(board);
         log.info("A new kalah game is started. ");
+
         return board;
     }
 
+    private GameEmitterRepository gameEmitterRepository;
+
     @Override
-    public Board joinToGame(int gameId) {
+    public void joinToGame(int gameId, SseEmitter sseEmitter) throws IOException {
         Optional<Board> optionalBoard = boardRepository.findById(gameId);
         if (optionalBoard.isEmpty())
-            throw new ServiceException(ErrorCode.GAME_NOT_FOUND,String.valueOf(gameId));
+            throw new ServiceException(ErrorCode.GAME_NOT_FOUND, String.valueOf(gameId));
 
-        return optionalBoard.get();
+        if (Objects.nonNull(gameEmitterRepository.get(gameId)) && gameEmitterRepository.get(gameId).size() >= GameUtil.SUPPORTED_PLAYER_NUMBER) {
+            throw new ServiceException(ErrorCode.PLAYERS_ARE_FULL, String.valueOf(gameId));
+        }
+
+        gameEmitterRepository.put(gameId, sseEmitter);
+        sendToClients(optionalBoard.get());
+
+    }
+
+    private SseEmitter sendToClients(Board board) {
+        if (Objects.nonNull(gameEmitterRepository.get(board.getId()))) {
+            gameEmitterRepository.get(board.getId())
+                    .forEach(mySseEmitter -> {
+                        try {
+                            GameStatusMsg gameResponse = board.getGameStatusMsg();
+                            gameResponse.setUrl(GameUtil.getGameUrl(gameResponse.getGameId()));
+
+                            log.info(gameResponse.toString());
+                            mySseEmitter.send(gameResponse);
+                            //mySseEmitter.complete();
+                        } catch (Throwable e) {
+                            log.info("IO exception while emitting the board.");
+                            mySseEmitter.completeWithError(e);
+                        }
+                    });
+            return gameEmitterRepository.get(board.getId()).get(0);
+        }
+        return null;
     }
 
     @Override
@@ -60,7 +94,6 @@ public class KalahServiceImpl implements KalahService {
         pitsMap.put(pitId, 0);
 
         while (stones > 0) {
-
             currentPitId = getNextPitId(currentPitId, currentPlayer);
             pitsMap.put(currentPitId, pitsMap.get(currentPitId) + 1);
             stones--;
@@ -91,35 +124,31 @@ public class KalahServiceImpl implements KalahService {
 
         game = boardRepository.save(game);
         log.info(String.format("The move request successfully processed. gameId: %d , pitId: %d ", gameId, pitId));
+
+        sendToClients(game);
         return game;
     }
 
     private void validateNewMoveRequest(Optional<Board> gameOptional, int gameId, int pitId) {
-        if (!gameOptional.isPresent()) {
+        if (!gameOptional.isPresent())
             throw new ServiceException(ErrorCode.GAME_NOT_FOUND, String.valueOf(gameId));
-        }
 
         Board game = gameOptional.get();
-        if (game.getIsOver()) {
+        if (game.getIsOver())
             throw new ServiceException(ErrorCode.GAME_IS_OVER, String.valueOf(gameId));
-        }
 
-        if (isKalah(pitId)) {
+        if (isKalah(pitId))
             throw new ServiceException(ErrorCode.PIT_IS_KALAH, String.valueOf(gameId));
-        }
 
-        if (!isOwnPit(pitId, game.getCurrentPlayer())) {
+        if (!isOwnPit(pitId, game.getCurrentPlayer()))
             throw new ServiceException(ErrorCode.PIT_IS_NOT_YOURS, String.valueOf(pitId));
-        }
 
         Map<Integer, Integer> pitsMap = game.getPitsMap();
-        if (Objects.isNull(pitsMap) || Objects.isNull(pitsMap.get(pitId))) {
+        if (Objects.isNull(pitsMap) || Objects.isNull(pitsMap.get(pitId)))
             throw new ServiceException(ErrorCode.INVALID_PIT, String.valueOf(pitId));
-        }
 
-        if (pitsMap.get(pitId) == 0) {
+        if (pitsMap.get(pitId) == 0)
             throw new ServiceException(ErrorCode.PIT_IS_EMPTY, String.valueOf(pitId));
-        }
     }
 
     private int getNextPitId(int currentPitId, Player currentPlayer) {
