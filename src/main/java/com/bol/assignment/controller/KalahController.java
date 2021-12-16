@@ -66,7 +66,7 @@ public class KalahController {
             @ApiParam("Identifier of the game.It Cannot be empty.") @NotNull @PathVariable("gameId") int gameId,
             @ApiParam("Identifier of the selected pit.It Cannot be empty or be a kalah") @NotNull @PathVariable("pitId") int pitId) throws IOException {
         log.info(String.format("A move is requested with these parameters: gameId: %d , pitId: %d ", gameId, pitId));
-        Board board = kalahService.move(gameId, pitId);
+        kalahService.move(gameId, pitId);
         log.info(String.format("The move request successfully processed. gameId: %d , pitId: %d ", gameId, pitId));
         return ResponseEntity.ok(HttpStatus.OK);
     }

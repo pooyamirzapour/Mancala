@@ -33,7 +33,7 @@ public interface KalahService {
      * @param pitId  identifier of the pit
      * @return an instance of KalahGameBoardDto as the latest status of the game
      */
-    Board move(int gameId, int pitId);
+    void move(int gameId, int pitId);
 
 
 }

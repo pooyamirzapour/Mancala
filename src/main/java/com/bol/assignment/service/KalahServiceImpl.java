@@ -58,7 +58,7 @@ public class KalahServiceImpl implements KalahService {
 
 
     @Override
-    public Board move(int gameId, int pitId) {
+    public void move(int gameId, int pitId) {
         log.info(String.format("Start moving. gameId: %d , pitId: %d ", gameId, pitId));
 
         Optional<Board> optionalBoard = boardRepository.findById(gameId);
@@ -72,7 +72,6 @@ public class KalahServiceImpl implements KalahService {
         notificationService.sendToClients(board);
 
         log.info(String.format("The move request successfully processed. gameId: %d , pitId: %d ", gameId, pitId));
-        return board;
     }
 
 
