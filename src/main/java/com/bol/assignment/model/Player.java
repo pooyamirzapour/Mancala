@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 @Entity
 @AllArgsConstructor
 public class Player extends BaseEntity {
-    private Boolean turn;
+    private Boolean turn=false;
     private int startPitNumber;
 
     /**
@@ -24,6 +24,8 @@ public class Player extends BaseEntity {
      */
     public Player(int start) {
         startPitNumber = start * GameUtil.PIT_FOR_PLAYER + 1;
+        if (start==0)
+            turn=true;
     }
 
     public Player() {

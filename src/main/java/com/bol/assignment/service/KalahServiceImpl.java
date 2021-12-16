@@ -31,12 +31,8 @@ public class KalahServiceImpl implements KalahService {
         log.info("Start a New game");
 
         Board board = new Board();
-        Player player_one = new Player(GameUtil.PLAYER_ONE);
-        Player player_two = new Player(GameUtil.PLAYER_TWO);
-        player_one.setTurn(true);
-        player_two.setTurn(false);
-        board.setPlayerOne(player_one);
-        board.setPlayerTow(player_two);
+        board.setPlayerOne(new Player(GameUtil.PLAYER_ONE));
+        board.setPlayerTow(new Player(GameUtil.PLAYER_TWO));
         board.setIsOver(false);
         board = boardRepository.save(board);
 
