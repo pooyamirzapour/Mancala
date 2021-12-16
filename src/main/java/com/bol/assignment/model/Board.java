@@ -31,6 +31,9 @@ public class Board  extends BaseEntity {
 
     private Boolean isOver;
 
+    @Transient
+    private int lastPlacedPit;
+
 
     /**
      * Constructs a new board and initiating pits.

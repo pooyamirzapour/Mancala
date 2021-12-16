@@ -15,6 +15,8 @@ public class GameUtil {
     public final static int PIT_FOR_PLAYER = PIT_COUNT + 1;
     public final static int TOTAL_PIT_COUNT = PIT_FOR_PLAYER * 2;
     public final static int SUPPORTED_PLAYER_NUMBER=2;
+    public final static int STARTED_PIT_FOR_PLAYER_ONE=1;
+    public final static int STARTED_PIT_FOR_PLAYER_TWO=8;
 
     public static String getGameUrl(int gameId) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path("api/v1/games/{gameId}").buildAndExpand(gameId).toUriString();

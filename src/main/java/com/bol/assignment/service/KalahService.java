@@ -21,7 +21,7 @@ public interface KalahService {
      * @param gameId
      * @return an existing instance of Board
      */
-    void joinToGame(int gameId,SseEmitter sseEmitter) throws IOException;
+    void joinToGame(int gameId,SseEmitter sseEmitter) ;
 
 
     /**
