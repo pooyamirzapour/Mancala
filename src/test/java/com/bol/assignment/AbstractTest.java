@@ -35,4 +35,5 @@ public class AbstractTest {
     @Autowired
     public KalahService kalahService;
 
+
 }
