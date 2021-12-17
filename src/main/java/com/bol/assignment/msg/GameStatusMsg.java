@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.Map;
 @JsonPropertyOrder({"id", "url", "status"})
 @ApiModel(description = "This class is used to show the latest status of a Kalah game.")
 @Data
+@NoArgsConstructor
 public class GameStatusMsg implements Serializable {
 
     @ApiModelProperty(notes = "Unique identifier of the game.", example = "1")

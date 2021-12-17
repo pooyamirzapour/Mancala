@@ -6,6 +6,7 @@ import com.bol.assignment.repository.BoardRepository;
 import com.bol.assignment.service.MoveRuleService;
 import com.bol.assignment.service.multi.MultiKalahService;
 import com.bol.assignment.service.multi.NotificationService;
+import com.bol.assignment.service.single.SingleKalahService;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,9 @@ public class AbstractTest {
 
     @Autowired
     public MultiKalahService kalahService;
+
+    @Autowired
+    public SingleKalahService singleKalahService;
 
 
 }

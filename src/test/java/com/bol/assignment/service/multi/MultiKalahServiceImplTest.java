@@ -9,15 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MultiKalahServiceImplTest extends AbstractTest {
 
     @AfterEach
-    void deleteBoard()
-    {
+    void deleteBoard() {
         boardRepository.deleteAll();
     }
 
@@ -36,13 +32,13 @@ class MultiKalahServiceImplTest extends AbstractTest {
         SseEmitter sseEmitter = new SseEmitter();
         kalahService.joinToGame(board.getId(), sseEmitter);
         List<SseEmitter> sseEmitters = gameEmitterRepository.get(board.getId());
-        Assertions.assertEquals(sseEmitter,sseEmitters.get(0));
+        Assertions.assertEquals(sseEmitter, sseEmitters.get(0));
     }
 
     @Test
     void should_throw_exception_when_gameId_is_invalid() {
         SseEmitter sseEmitter = new SseEmitter();
-        Assertions.assertThrows(ServiceException.class,()->kalahService.joinToGame(2, sseEmitter));
+        Assertions.assertThrows(ServiceException.class, () -> kalahService.joinToGame(2, sseEmitter));
     }
 
     @Test
@@ -55,9 +51,9 @@ class MultiKalahServiceImplTest extends AbstractTest {
         SseEmitter sseEmitter2 = new SseEmitter();
         kalahService.joinToGame(board.getId(), sseEmitter2);
 
-        Assertions.assertEquals(sseEmitter,sseEmitters.get(0));
-        Assertions.assertEquals(sseEmitter2,sseEmitters.get(1));
-        Assertions.assertThrows(ServiceException.class,()->kalahService.joinToGame(1, sseEmitter));
+        Assertions.assertEquals(sseEmitter, sseEmitters.get(0));
+        Assertions.assertEquals(sseEmitter2, sseEmitters.get(1));
+        Assertions.assertThrows(ServiceException.class, () -> kalahService.joinToGame(1, sseEmitter));
     }
 
 
@@ -66,8 +62,8 @@ class MultiKalahServiceImplTest extends AbstractTest {
         Board board = kalahService.newGame();
         SseEmitter sseEmitter = new SseEmitter();
         kalahService.joinToGame(board.getId(), sseEmitter);
-        kalahService.move(board.getId(),1);
-        Assertions.assertEquals(0,board.getPitsMap().get(1));
-
+        kalahService.move(board.getId(), 1);
+        board = boardRepository.findById(board.getId()).get();
+        Assertions.assertEquals(0, board.getPitsMap().get(1));
     }
 }

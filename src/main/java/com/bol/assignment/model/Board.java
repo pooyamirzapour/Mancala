@@ -18,11 +18,11 @@ import java.util.Map;
 @Entity
 public class Board  extends BaseEntity {
 
-    @ElementCollection
     @MapKeyColumn(name = "ID")
 
     @Column(name = "STONE")
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PIT", joinColumns = @JoinColumn(name = "BOARD_ID"))
     private Map<Integer, Integer> pitsMap;
 
