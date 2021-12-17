@@ -3,9 +3,9 @@ package com.bol.assignment;
 
 import com.bol.assignment.component.GameEmitterRepository;
 import com.bol.assignment.repository.BoardRepository;
-import com.bol.assignment.service.KalahService;
 import com.bol.assignment.service.MoveRuleService;
-import com.bol.assignment.service.NotificationService;
+import com.bol.assignment.service.multi.MultiKalahService;
+import com.bol.assignment.service.multi.NotificationService;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class AbstractTest {
     public NotificationService notificationService;
 
     @Autowired
-    public KalahService kalahService;
+    public MultiKalahService kalahService;
 
 
 }

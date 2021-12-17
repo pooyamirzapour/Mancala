@@ -8,15 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.ResourceHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-class KalahControllerTest extends AbstractTest {
+class MultipleBrowserController2Test extends AbstractTest {
 
     @LocalServerPort
     private int localPort;
@@ -24,6 +17,7 @@ class KalahControllerTest extends AbstractTest {
     @AfterEach
     void deleteBoard() {
         boardRepository.deleteAll();
+        gameEmitterRepository.clear();
     }
 
     @Test
@@ -45,10 +39,10 @@ class KalahControllerTest extends AbstractTest {
         ResponseEntity<KalahGameMsg> kalahGameMsgResponseEntity = newGame();
         ResponseEntity<Resource> exchange = joinToGame(kalahGameMsgResponseEntity);
         Assertions.assertEquals(HttpStatus.OK, exchange.getStatusCode());
-        Assertions.assertEquals(1, gameEmitterRepository.get(1).size());
+        Assertions.assertEquals(1, gameEmitterRepository.get(kalahGameMsgResponseEntity.getBody().getGameId()).size());
     }
 
-    private ResponseEntity<Resource>  joinToGame(ResponseEntity<KalahGameMsg> kalahGameMsgResponseEntity) {
+    private ResponseEntity<Resource> joinToGame(ResponseEntity<KalahGameMsg> kalahGameMsgResponseEntity) {
         String uri = String.format("http://localhost:%s/api/v1/games/join/%d", localPort, kalahGameMsgResponseEntity.getBody().getGameId());
         return restTemplate.getForEntity(uri, Resource.class);
     }
@@ -58,7 +52,7 @@ class KalahControllerTest extends AbstractTest {
         ResponseEntity<KalahGameMsg> kalahGameMsgResponseEntity = newGame();
 
         String uri = String.format("http://localhost:%s/api/v1/games/%d/pits/%d", localPort,
-                kalahGameMsgResponseEntity.getBody().getGameId(),1);
+                kalahGameMsgResponseEntity.getBody().getGameId(), 1);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
@@ -66,7 +60,6 @@ class KalahControllerTest extends AbstractTest {
         ResponseEntity<Resource> exchange = testRestTemplate.exchange(uri, HttpMethod.POST, entity, Resource.class);
 
         Assertions.assertEquals(HttpStatus.OK, exchange.getStatusCode());
-
 
 
     }

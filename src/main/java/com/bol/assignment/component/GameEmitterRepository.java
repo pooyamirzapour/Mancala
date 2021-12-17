@@ -27,4 +27,9 @@ public class GameEmitterRepository {
 		return players.get(gameId);
 	}
 
+	public void clear() {
+		 players.clear();
+	}
+
+
 }

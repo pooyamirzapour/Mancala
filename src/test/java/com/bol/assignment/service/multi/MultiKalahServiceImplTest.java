@@ -1,4 +1,4 @@
-package com.bol.assignment.service;
+package com.bol.assignment.service.multi;
 
 import com.bol.assignment.AbstractTest;
 import com.bol.assignment.exception.ServiceException;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class KalahServiceImplTest extends AbstractTest {
+class MultiKalahServiceImplTest extends AbstractTest {
 
     @AfterEach
     void deleteBoard()

@@ -1,4 +1,4 @@
-package com.bol.assignment.service;
+package com.bol.assignment.service.multi;
 
 import com.bol.assignment.component.GameEmitterRepository;
 import com.bol.assignment.model.Board;

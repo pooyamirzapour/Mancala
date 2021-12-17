@@ -1,4 +1,4 @@
-package com.bol.assignment.service;
+package com.bol.assignment.service.multi;
 
 import com.bol.assignment.model.Board;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -7,7 +7,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
  * KalahService interface provides some methods to play the game.
  * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
  */
-public interface KalahService {
+public interface MultiKalahService {
 
     /**
      * Creates a new Kalah game.
@@ -31,7 +31,6 @@ public interface KalahService {
      *
      * @param gameId identifier of the game
      * @param pitId  identifier of the pit
-     * @return an instance of KalahGameBoardDto as the latest status of the game
      */
     void move(int gameId, int pitId);
 

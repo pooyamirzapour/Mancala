@@ -74,7 +74,7 @@
         document.getElementById("start").disabled = true;
 
         $.ajax({
-            url: "http://localhost:8087/api/v1/games",
+            url: "http://localhost:8087/api/v1/games/single/",
             type: "POST",
             data: {},
             dataType: "html",
@@ -88,37 +88,8 @@
                 var url = $("#hid-url").val();
                 //console.log(url);
                 //setTextBoxes(resp);
-            },
-            error: function () {
-                console.log('error');
-                var resp = {
-                    "id": 1,
-                    "url": "http://localhost:8087/games/1",
-                    "status": {
-                        "1": 1,
-                        "2": 0,
-                        "3": 8,
-                        "4": 8,
-                        "5": 8,
-                        "6": 8,
-                        "7": 2,
-                        "8": 0,
-                        "9": 8,
-                        "10": 7,
-                        "11": 7,
-                        "12": 7,
-                        "13": 7,
-                        "14": 1
-                    },
-                    "playerId": 1
-                };
-                //console.log(resp.url);
-                $("#hid-url").val(resp.url);
-                var url = $("#hid-url").val();
-                //console.log(url);
-
-                setTextBoxes(resp);
             }
+
         })
 
         $('.hidden').show();
@@ -159,32 +130,6 @@
             //dataType: "json",
             success: function (resp) {
                 console.log('submit successful');
-                setTextBoxes(resp);
-                $("#pitNumber").val('');
-            },
-            error: function () {
-                console.log('error');
-                var resp = {
-                    "id": 1,
-                    "url": "http://localhost:63342/games/1",
-                    "status": {
-                        "1": 5,
-                        "2": 6,
-                        "3": 7,
-                        "4": 8,
-                        "5": 9,
-                        "6": 10,
-                        "7": 2,
-                        "8": 0,
-                        "9": 8,
-                        "10": 3,
-                        "11": 4,
-                        "12": 5,
-                        "13": 6,
-                        "14": 7
-                    },
-                    "playerId": 1
-                };
                 setTextBoxes(resp);
                 $("#pitNumber").val('');
             }
