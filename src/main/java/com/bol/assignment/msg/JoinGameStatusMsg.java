@@ -38,8 +38,4 @@ public class JoinGameStatusMsg implements Serializable {
         this.gameId = gameId;
     }
 
-    public JoinGameStatusMsg(int gameId, String url) {
-        this.gameId = gameId;
-        this.url = url;
-    }
 }

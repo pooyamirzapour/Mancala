@@ -18,7 +18,7 @@ class AppConfig {
     private Environment env;
 
     /**
-     * Get url from environment.
+     * Get path from environment.
      *
      * @return a path string.
      */
