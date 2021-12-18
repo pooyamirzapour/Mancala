@@ -1,7 +1,6 @@
 package com.bol.assignment.model;
 
 import com.bol.assignment.msg.GameStatusMsg;
-import com.bol.assignment.msg.JoinGameStatusMsg;
 import com.bol.assignment.util.GameUtil;
 import lombok.Data;
 
@@ -11,12 +10,13 @@ import java.util.Map;
 
 /**
  * Board is an entity class hold the game last status.
+ *
  * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
  */
 
 @Data
 @Entity
-public class Board  extends BaseEntity {
+public class Board extends BaseEntity {
 
     @MapKeyColumn(name = "ID")
 
@@ -74,16 +74,5 @@ public class Board  extends BaseEntity {
         return gameStatusMsg;
     }
 
-    public JoinGameStatusMsg getJoinGameStatusMsg() {
-        JoinGameStatusMsg gameStatusMsg = new JoinGameStatusMsg(this.getId());
-        gameStatusMsg.setPitsMap_playerOne(this.getPitsMap());
-
-        if (playerOne.getTurn()) {
-            gameStatusMsg.setPlayerId(this.playerOne.getId());
-        } else {
-            gameStatusMsg.setPlayerId(this.playerTow.getId());
-        }
-        return gameStatusMsg;
-    }
 
 }

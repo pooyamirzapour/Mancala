@@ -18,6 +18,12 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
+/**
+ * Rest controller class to start a new game, join, and move on the multiple browser.*
+ *
+ * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
+ */
+
 @RestController
 @Api("Provides set of endpoints to create, and play a Kalah game.")
 @Slf4j
@@ -28,6 +34,10 @@ public class MultipleBrowserController {
     private MultiKalahService multiKalahService;
     private GameUtil gameUtil;
 
+    /**
+     * It starts a new game
+     * @return a KalahGameMsg to the client
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("Staring a new Kalah game.")
@@ -41,6 +51,12 @@ public class MultipleBrowserController {
         return kalahGameMsg;
     }
 
+    /**
+     * It joins to an existing game.
+     * @param gameId
+     * @return SseEmitter
+     * @throws IOException
+     */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/join/{gameId}")
     @ApiOperation("Join to a game Kalah game.")
@@ -53,6 +69,13 @@ public class MultipleBrowserController {
         return sseEmitter;
     }
 
+    /**
+     * It makes an updated game board for client and send with the help of SseEmitter.
+     * @param gameId
+     * @param pitId
+     * @return ResponseEntity.
+     * @throws IOException
+     */
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(value = "/{gameId}/pits/{pitId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("Performs a move from a specific pit and returns the latest status of the game.")

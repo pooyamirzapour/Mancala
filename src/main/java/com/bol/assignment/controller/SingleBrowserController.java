@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
 /**
- * Rest controller class to start a new game and move on the game.*
+ * Rest controller class to start a new game and move on the single browser.*
  *
  * @author Pooya Mirzapour (Pooyamirzapour@gmail.com)
  */
@@ -34,6 +34,10 @@ public class SingleBrowserController {
     private GameUtil gameUtil;
     private final BoardMapper boardMapper;
 
+    /**
+     * It starts a new game
+     * @return a KalahGameMsg to the client
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     @ApiOperation("Staring a new Kalah game.")
@@ -48,6 +52,13 @@ public class SingleBrowserController {
     }
 
 
+    /**
+     * It makes an updated game board for client.
+     * @param gameId
+     * @param pitId
+     * @return an updated GameStatusMsg after the move to the client.
+     * @throws IOException
+     */
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{gameId}/pits/{pitId}")
     @ApiOperation("Performs a move from a specific pit and returns the latest status of the game.")

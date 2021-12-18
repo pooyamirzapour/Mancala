@@ -2,10 +2,11 @@ package com.bol.assignment.mapper;
 
 import com.bol.assignment.model.Board;
 import com.bol.assignment.msg.GameStatusMsg;
-import com.bol.assignment.util.GameUtil;
 import org.mapstruct.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ *
+ */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BoardMapper {
 
