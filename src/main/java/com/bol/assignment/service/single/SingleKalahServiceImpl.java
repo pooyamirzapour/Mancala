@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * An implementation for playing game on a single browser.
+ * Including newGame, and move.
+ */
 @Service
 @Slf4j
 @AllArgsConstructor

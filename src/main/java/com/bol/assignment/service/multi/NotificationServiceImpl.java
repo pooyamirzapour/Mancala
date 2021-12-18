@@ -11,10 +11,14 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Objects;
 
+/**
+ * NotificationServiceImpl class is responsible for sending notification
+ * with an updated game board to the clients.
+ */
 @Slf4j
 @Service
 @AllArgsConstructor
-public class NotificationServiceImpl implements NotificationService{
+public class NotificationServiceImpl implements NotificationService {
 
     private GameEmitterRepository gameEmitterRepository;
     private GameUtil gameUtil;

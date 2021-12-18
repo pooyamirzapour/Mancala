@@ -17,7 +17,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- *
+ * An implementation for playing game on a multiple browser.
+ * Including newGame, join, and move.
  */
 @Service
 @Slf4j
