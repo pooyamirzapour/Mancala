@@ -22,6 +22,8 @@ import java.util.Optional;
 public class MoveRuleServiceImpl implements MoveRuleService {
     @Override
     public void replace(Board board, int pitId) {
+        log.info(String.format("Start seeds replacement. board: %s", board));
+
         Player currentPlayer = board.getCurrentPlayer();
         Map<Integer, Integer> pitsMap = board.getPitsMap();
         int currentPitId = pitId;
@@ -34,6 +36,7 @@ public class MoveRuleServiceImpl implements MoveRuleService {
             stones--;
         }
         board.setLastPlacedPit(currentPitId);
+        log.info(String.format("Replaced seeds on pits. board: %s", board));
 
     }
 
@@ -68,6 +71,8 @@ public class MoveRuleServiceImpl implements MoveRuleService {
                 board.getPlayerOne().setTurn(true);
                 board.getPlayerTwo().setTurn(false);
             }
+            log.info(String.format("Set Turn. Board: %s", board));
+
         }
     }
 

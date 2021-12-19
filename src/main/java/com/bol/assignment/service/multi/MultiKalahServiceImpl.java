@@ -40,13 +40,15 @@ public class MultiKalahServiceImpl implements MultiKalahService {
         board.setIsOver(false);
         board = boardRepository.save(board);
 
-        log.info("A new kalah game is started. ");
+        log.info("A new game is started.");
 
         return board;
     }
 
     @Override
     public void joinToGame(int gameId, SseEmitter sseEmitter) {
+        log.info("Join to a game");
+
         Optional<Board> optionalBoard = boardRepository.findById(gameId);
         if (optionalBoard.isEmpty())
             throw new ServiceException(ErrorCode.GAME_NOT_FOUND, String.valueOf(gameId));
@@ -57,6 +59,9 @@ public class MultiKalahServiceImpl implements MultiKalahService {
 
         gameEmitterRepository.put(gameId, sseEmitter);
         notificationService.sendToClients(optionalBoard.get());
+
+        log.info("Join to a game Started");
+
 
     }
 

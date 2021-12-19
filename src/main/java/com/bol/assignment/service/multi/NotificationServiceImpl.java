@@ -24,6 +24,8 @@ public class NotificationServiceImpl implements NotificationService {
     private GameUtil gameUtil;
 
     public SseEmitter sendToClients(Board board) {
+        log.info("Send to client.");
+
         if (Objects.nonNull(gameEmitterRepository.get(board.getId()))) {
             gameEmitterRepository.get(board.getId())
                     .forEach(mySseEmitter -> {
@@ -38,6 +40,8 @@ public class NotificationServiceImpl implements NotificationService {
                             mySseEmitter.completeWithError(e);
                         }
                     });
+            log.info("Send to client completed.");
+
             return gameEmitterRepository.get(board.getId()).get(0);
         }
         return null;
