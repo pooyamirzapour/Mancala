@@ -2,9 +2,17 @@
 This project implements some APIs, and a simple clients for Mancala game.
 
 ### Approach
-There are two different approaches: Firstly, running on a single browser, and Running on multiple
+There are two different approaches: Firstly, running on a single browser, and Running on the multiple
 browsers. The services are exposed based on REST. In the multiple browsers approach, after any movement, client will be
-notified with the help of ***SseEmitter***.
+notified with the help of ***SseEmitter***. That sends unidirectional asynchronous events
+to any web app using Spring
+For more details please see the below links:
+`
+https://dzone.com/articles/server-sent-events-using-spring
+`
+`
+https://www.baeldung.com/spring-mvc-sse-streams
+`
 
 ## Technologies, Framework and Tools
 -	Java 11
