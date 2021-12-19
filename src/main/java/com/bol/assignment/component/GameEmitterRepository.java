@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+
+// TODO: For achieving horizontally scaling, the Map must change with the Redis.
+
 /**
  * GameEmitterRepository for holding and retrieving SseEmitters.
  *
