@@ -36,7 +36,7 @@ public class MultiKalahServiceImpl implements MultiKalahService {
 
         Board board = new Board();
         board.setPlayerOne(new Player(GameUtil.PLAYER_ONE));
-        board.setPlayerTow(new Player(GameUtil.PLAYER_TWO));
+        board.setPlayerTwo(new Player(GameUtil.PLAYER_TWO));
         board.setIsOver(false);
         board = boardRepository.save(board);
 

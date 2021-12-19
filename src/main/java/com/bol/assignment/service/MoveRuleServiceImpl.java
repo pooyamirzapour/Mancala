@@ -63,10 +63,10 @@ public class MoveRuleServiceImpl implements MoveRuleService {
         if (board.getLastPlacedPit() != getCurrentKalahPitId(board.getCurrentPlayer())) {
             if (board.getCurrentPlayer().getStartPitNumber() == GameUtil.STARTED_PIT_FOR_PLAYER_ONE) {
                 board.getPlayerOne().setTurn(false);
-                board.getPlayerTow().setTurn(true);
+                board.getPlayerTwo().setTurn(true);
             } else if (board.getCurrentPlayer().getStartPitNumber() == GameUtil.STARTED_PIT_FOR_PLAYER_TWO) {
                 board.getPlayerOne().setTurn(true);
-                board.getPlayerTow().setTurn(false);
+                board.getPlayerTwo().setTurn(false);
             }
         }
     }

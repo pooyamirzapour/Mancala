@@ -32,7 +32,7 @@ public class Board extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PLAYER_TWO_ID")
-    private Player playerTow;
+    private Player playerTwo;
 
     private Boolean isOver;
 
@@ -55,11 +55,11 @@ public class Board extends BaseEntity {
     }
 
     public Player getCurrentPlayer() {
-        return playerOne.getTurn() ? playerOne : playerTow;
+        return playerOne.getTurn() ? playerOne : playerTwo;
     }
 
     public Player getOpponentPlayer() {
-        return playerOne.getTurn() ? playerTow : playerOne;
+        return playerOne.getTurn() ? playerTwo : playerOne;
     }
 
     public GameStatusMsg getGameStatusMsg() {
@@ -69,7 +69,7 @@ public class Board extends BaseEntity {
         if (playerOne.getTurn()) {
             gameStatusMsg.setPlayerId(this.playerOne.getId());
         } else {
-            gameStatusMsg.setPlayerId(this.playerTow.getId());
+            gameStatusMsg.setPlayerId(this.playerTwo.getId());
         }
         return gameStatusMsg;
     }
