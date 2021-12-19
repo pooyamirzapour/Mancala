@@ -10,10 +10,6 @@ There are some assumptions inside the application :
 
 2) Methodology of development is TDD.
 
-3) The application is developed stateless.
-
-3) The application is developed horizontal scalable.
-
 4) The code coverage test should be more than 80 percents.
 
    
