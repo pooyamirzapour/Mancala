@@ -47,7 +47,7 @@ class SingleBrowserControllerTest extends AbstractTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
         HttpEntity<?> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<GameStatusMsg> exchange = testRestTemplate.exchange(uri, HttpMethod.PUT , entity, GameStatusMsg.class);
+        ResponseEntity<GameStatusMsg> exchange = testRestTemplate.exchange(uri, HttpMethod.POST , entity, GameStatusMsg.class);
 
         Assertions.assertEquals(HttpStatus.OK, exchange.getStatusCode());
         Assertions.assertEquals(0, exchange.getBody().getPitsMap_playerOne().get(1));

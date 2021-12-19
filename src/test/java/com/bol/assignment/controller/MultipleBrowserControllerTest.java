@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
+import org.springframework.test.context.TestPropertySource;
 
 class MultipleBrowserControllerTest extends AbstractTest {
 
