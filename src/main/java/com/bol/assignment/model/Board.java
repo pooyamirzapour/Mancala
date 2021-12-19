@@ -46,12 +46,12 @@ public class Board extends BaseEntity {
     public Board() {
         pitsMap = new HashMap<>();
         // initialing pits with total pit count
-        for (int pitId = 1; pitId < GameUtil.TOTAL_PIT_COUNT; pitId++) {
+        for (int pitId = 1; pitId < GameUtil.KALAH_TWO; pitId++) {
             if (pitId != GameUtil.KALAH_ONE)
                 pitsMap.put(pitId, GameUtil.INITIAL_STONE);
         }
         pitsMap.put(GameUtil.KALAH_ONE, 0);  // kala for palayer one
-        pitsMap.put(GameUtil.TOTAL_PIT_COUNT, 0); // kala for palayer two
+        pitsMap.put(GameUtil.KALAH_TWO, 0); // kala for palayer two
     }
 
     public Player getCurrentPlayer() {

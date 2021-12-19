@@ -112,9 +112,9 @@ public class MoveRuleServiceImpl implements MoveRuleService {
     }
 
     private int getNextPitId(int currentPitId, Player currentPlayer) {
-        int nextPitId = (currentPitId % GameUtil.TOTAL_PIT_COUNT) + 1;
+        int nextPitId = (currentPitId % GameUtil.KALAH_TWO) + 1;
         if (nextPitId != getCurrentKalahPitId(currentPlayer)  && isKalah(nextPitId))
-            nextPitId = (nextPitId % GameUtil.TOTAL_PIT_COUNT) + 1;
+            nextPitId = (nextPitId % GameUtil.KALAH_TWO) + 1;
         return nextPitId;
     }
 
@@ -131,7 +131,7 @@ public class MoveRuleServiceImpl implements MoveRuleService {
 
 
     private int getFrontPitId(int pitId) {
-        int oppositeSidePitId = GameUtil.TOTAL_PIT_COUNT - pitId;
+        int oppositeSidePitId = GameUtil.KALAH_TWO - pitId;
         return oppositeSidePitId;
     }
 
