@@ -9,7 +9,7 @@ docker images
 ```
 ## to run the image:
 ```
-docker run -p 8087:8087 Mancala
+docker run -p 8087:8087 mancala
 ```
 ## to see all container:
 ```
