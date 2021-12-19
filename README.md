@@ -16,6 +16,10 @@ To run the application please click:
 To test the application please click:
 [How to test](how_to_test.md)
 
+### How To Play
+To play the application please click:
+[How to play](how_to_play.md)
+
 ### How To Scale
 For scaling the application please click:
 [How to scale](scale.md)
