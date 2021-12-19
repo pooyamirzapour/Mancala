@@ -7,12 +7,12 @@ browsers. The services are exposed based on REST. In the multiple browsers appro
 notified with the help of ***SseEmitter***. That sends unidirectional asynchronous events
 to any web app using Spring
 For more details please see the below links:
-`
-https://dzone.com/articles/server-sent-events-using-spring
-`
-`
-https://www.baeldung.com/spring-mvc-sse-streams
-`
+
+[SseEmitter]https://dzone.com/articles/server-sent-events-using-spring
+
+
+[SseEmitter]https://www.baeldung.com/spring-mvc-sse-streams
+
 
 ## Technologies, Framework and Tools
 -	Java 11
