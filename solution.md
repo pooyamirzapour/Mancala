@@ -1,7 +1,7 @@
 ## Mancala Assignment
 This project implements some APIs, and a simple clients for Mancala game.
 
-### Approach
+## Approach
 There are two different approaches: Firstly, running on a single browser, and Running on the multiple
 browsers. The services are exposed based on REST. In the multiple browsers approach, after any movement, client will be
 notified with the help of ***SseEmitter***. SseEmitter sends unidirectional asynchronous events
@@ -12,6 +12,12 @@ For more details please see the below links:
 
 
 [SseEmitter]https://www.baeldung.com/spring-mvc-sse-streams
+
+## Implementation
+The move rules of the game have been implemented in ***MoveRuleServiceImpl*** class in different methods,
+and in the ***SingleKalahServiceImpl*** and ***MultiKalahServiceImpl*** classes these methods and rules 
+have been orchestrated. If you wish change one of rules or some, you can define your implementation of ***MoveRuleService***
+and with the help of ***@Qualifier*** use your own rules.(That is the ***Open Close Principle of SOLID***)
 
 
 ## Technologies, Framework and Tools
