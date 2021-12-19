@@ -5,7 +5,7 @@ To develop of the project for the future it should be considered below:
    because is easy to config, and run that is proper for test and assignments.)
    
    
-2) For achieving horizontally scaling the ***Map*** in the ***GameEmitterRepository*** class must change with the ***Redis***.
+2) For achieving horizontally scaling the ***Map*** in the ***GameEmitterRepository*** class must be changed to the ***Redis***.
 
 
 3) Implementing a user management module, for registration and login users, and also keeping user's activities, and
