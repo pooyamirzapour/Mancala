@@ -52,7 +52,7 @@ public class MoveRuleServiceImpl implements MoveRuleService {
     @Override
     public void collectAll(Board board) {
         if (gameIsOver(board.getPitsMap(), board.getCurrentPlayer())) {
-            log.info(String.format("Game is over with gameId: %d", board));
+            log.info(String.format("Game is over with gameId: %s", board));
             board.setIsOver(true);
             gatherOpponentRemainingStone(board);
         }
@@ -108,8 +108,7 @@ public class MoveRuleServiceImpl implements MoveRuleService {
 
     private int getNextPitId(int currentPitId, Player currentPlayer) {
         int nextPitId = (currentPitId % GameUtil.TOTAL_PIT_COUNT) + 1;
-        if (nextPitId != getCurrentKalahPitId(currentPlayer)
-                && isKalah(nextPitId))
+        if (nextPitId != getCurrentKalahPitId(currentPlayer)  && isKalah(nextPitId))
             nextPitId = (nextPitId % GameUtil.TOTAL_PIT_COUNT) + 1;
         return nextPitId;
     }
@@ -126,34 +125,35 @@ public class MoveRuleServiceImpl implements MoveRuleService {
                 board.getPitsMap().get(oppositeSidePitId) > 0;
     }
 
+
     private int getFrontPitId(int pitId) {
         int oppositeSidePitId = GameUtil.TOTAL_PIT_COUNT - pitId;
         return oppositeSidePitId;
     }
 
     private boolean gameIsOver(Map<Integer, Integer> pitsMap, Player currentPlayer) {
-        boolean gameIsOver = true;
         int startOwnPitId = currentPlayer.getStartPitNumber();
         int endOwnPitId = currentPlayer.getStartPitNumber() + GameUtil.PIT_COUNT - 1;
-
-        for (int pitId = startOwnPitId; pitId <= endOwnPitId; pitId++) {
-            if (pitsMap.get(pitId) > 0) {
-                gameIsOver = false;
-            }
-        }
-        return gameIsOver;
+        return !pitsMap.entrySet().stream().
+                filter(f -> f.getKey().compareTo(startOwnPitId) >= 0 && f.getKey().compareTo(endOwnPitId) <= 0).
+                anyMatch(f -> f.getValue() > 0);
     }
 
-    private void gatherOpponentRemainingStone(Board game) {
-        int startOpponentPitId = game.getOpponentPlayer().getStartPitNumber();
-        int endOpponentPitId = game.getOpponentPlayer().getStartPitNumber() + GameUtil.PIT_COUNT - 1;
+    private void gatherOpponentRemainingStone(Board board) {
+        int startOpponentPitId = board.getOpponentPlayer().getStartPitNumber();
+        int endOpponentPitId = board.getOpponentPlayer().getStartPitNumber() + GameUtil.PIT_COUNT - 1;
         int opponentKalahPitId = endOpponentPitId + 1;
-        int remainingStone = 0;
-        for (int pitId = startOpponentPitId; pitId <= endOpponentPitId; pitId++) {
-            remainingStone += game.getPitsMap().get(pitId);
-            game.getPitsMap().put(pitId, 0);
-        }
 
-        game.getPitsMap().put(opponentKalahPitId, game.getPitsMap().get(opponentKalahPitId) + remainingStone);
+        int remainingStone = board.getPitsMap().entrySet().stream().
+                filter(f -> f.getKey().compareTo(startOpponentPitId) >= 0 && f.getKey().compareTo(endOpponentPitId) <= 0).
+                map((Map.Entry::getValue))
+                .reduce(0, (a, b) -> a + b);
+
+        board.getPitsMap().entrySet().stream().
+                filter(f -> f.getKey().compareTo(startOpponentPitId) >= 0 && f.getKey().compareTo(endOpponentPitId) <= 0)
+                .forEach(
+                        f -> f.setValue(0)
+                );
+        board.getPitsMap().put(opponentKalahPitId, board.getPitsMap().get(opponentKalahPitId) + remainingStone);
     }
 }

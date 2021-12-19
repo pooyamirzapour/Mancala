@@ -61,7 +61,6 @@
 <div class="center hidden">
     <input id="pitNumber" type="text"/>
     <input type="button" value="Submit" onclick="submit();"/>
-    <!--    <input type="button" value="Join" onclick="join();"/>-->
 </div>
 
 </body>
@@ -116,7 +115,7 @@
     var submit = function () {
         var pitNumber = $("#pitNumber").val();
         var url = $("#hid-url").val();
-        var postUrl = 'http://localhost:8087/api/v1/games/1/pits/' + pitNumber;
+        var postUrl = 'http://localhost:8087/api/v1/games/'+document.cookie+'/pits/' + pitNumber;
         console.log(postUrl);
 
         console.log('s1');

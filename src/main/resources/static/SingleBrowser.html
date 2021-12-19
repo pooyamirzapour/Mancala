@@ -83,13 +83,44 @@
                 console.log('start successful');
                 //console.log(resp);
                 var obj = JSON.parse(resp);
+                document.cookie=obj.id;
                 console.log(obj.url);
+                console.log(obj.id);
                 $("#hid-url").val(obj.url);
                 var url = $("#hid-url").val();
                 //console.log(url);
                 //setTextBoxes(resp);
-            }
+            },
+            error: function () {
+                console.log('error');
+                var resp = {
+                    "id": 1,
+                    "url": "http://localhost:8087/games/1",
+                    "status": {
+                        "1": 1,
+                        "2": 0,
+                        "3": 8,
+                        "4": 8,
+                        "5": 8,
+                        "6": 8,
+                        "7": 2,
+                        "8": 0,
+                        "9": 8,
+                        "10": 7,
+                        "11": 7,
+                        "12": 7,
+                        "13": 7,
+                        "14": 1
+                    },
+                    "playerId": 1
+                };
+                //console.log(resp.url);
+                $("#hid-url").val(resp.url);
+                var url = $("#hid-url").val();
+                //console.log(url);
 
+                setTextBoxes(resp);
+            }
         })
 
         $('.hidden').show();
@@ -119,17 +150,18 @@
     var submit = function () {
         var pitNumber = $("#pitNumber").val();
         var url = $("#hid-url").val();
-        var postUrl = url + "/pits/" + pitNumber;
+        var postUrl = 'http://localhost:8087/api/v1/games/single/'+ document.cookie + "/pits/" + pitNumber;
         console.log(postUrl);
 
         $.ajax({
             url: postUrl,
-            type: "PUT",
+            type: "POST",
             data: {},
             dataType: "html",
             //dataType: "json",
             success: function (resp) {
                 console.log('submit successful');
+                console.log(resp);
                 setTextBoxes(resp);
                 $("#pitNumber").val('');
             }

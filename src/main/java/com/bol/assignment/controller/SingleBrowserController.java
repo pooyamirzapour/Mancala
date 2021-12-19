@@ -60,7 +60,7 @@ public class SingleBrowserController {
      * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "/{gameId}/pits/{pitId}")
+    @PostMapping(value = "/{gameId}/pits/{pitId}")
     @ApiOperation("Performs a move from a specific pit and returns the latest status of the game.")
     public GameStatusMsg move(
             @ApiParam("Identifier of the game.It Cannot be empty.") @NotNull @PathVariable("gameId") int gameId,

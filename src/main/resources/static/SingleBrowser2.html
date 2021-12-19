@@ -35,7 +35,7 @@
 </div>
 
 <div></div>
-<div class="center hidden">
+<div class="center hidden pit-row">
     <input id="pit7" type="text" readonly="readonly" class="pit txt p1-back"/>
     <input id="pit6" type="text" readonly="readonly" class="pit txt" value="6"/>
     <input id="pit5" type="text" readonly="readonly" class="pit txt" value="6"/>
@@ -44,7 +44,7 @@
     <input id="pit2" type="text" readonly="readonly" class="pit txt" value="6"/>
     <input id="pit1" type="text" readonly="readonly" class="pit txt" value="6"/>
 </div>
-<div class="center hidden">
+<div class="center hidden pit-row">
     <input id="pit8" type="text" readonly="readonly" class="pit txt" value="6"/>
     <input id="pit9" type="text" readonly="readonly" class="pit txt" value="6"/>
     <input id="pit10" type="text" readonly="readonly" class="pit txt" value="6"/>
@@ -53,10 +53,9 @@
     <input id="pit13" type="text" readonly="readonly" class="pit txt" value="6"/>
     <input id="pit14" type="text" readonly="readonly" class="pit txt p2-back"/>
 </div>
-<div class="center hidden">
+<div class="center hidden submit-row">
     <input id="pitNumber" type="text"/>
     <input type="button" value="Submit" onclick="submit();"/>
-    <!--    <input type="button" value="Join" onclick="join();"/>-->
 </div>
 
 </body>
@@ -64,9 +63,10 @@
 <script>
 
     var setTextBoxes = function (respStr) {
-        console.log(respStr);
+        console.log("setTextBoxes called");
+        //console.log(respStr);
         var resp = JSON.parse(respStr);
-        console.log(resp.status[1]);
+        //.log(resp.status[1]);
         $("#pit1").val(resp.status[1]);
         $("#pit2").val(resp.status[2]);
         $("#pit3").val(resp.status[3]);
@@ -86,29 +86,24 @@
 
     var submit = function () {
         var pitNumber = $("#pitNumber").val();
-        var url = $("#hid-url").val();
-        var postUrl = 'http://localhost:8087/api/v1/games/single/1/pits/' + pitNumber;
-        console.log(postUrl);
-
-        console.log('s1');
-
+        var postUrl = 'http://localhost:8087/api/v1/games/single/'+document.cookie+'/pits/' + pitNumber;
+        console.log('postUrl:  '+ postUrl);
         fetch(postUrl, {
-            method: "PUT",
+            method: "POST",
             body: JSON.stringify({}),
             headers: {
                 "Content-type": "application/json;charset=UTF-8",
                 "Accept": "*/*"
             }
         }).then(response => {
-            console.log('s2');
-
-            console.log(response)
+           console.log(response);
+           //setTextBoxes(response)
         })
     };
 
     var start = function () {
+        console.log("start called");
         document.getElementById("btnStart").disabled = true;
-        document.getElementById("joinId").disabled = true;
         console.log('start the game')
         fetch('http://localhost:8087/api/v1/games/single/', {
             method: "POST",
@@ -123,11 +118,12 @@
                 const obj = json;
                 console.log(obj.id)
                 document.cookie = obj.id;
-                document.getElementById("joinId").value = obj.id;
             })
             .catch(err => console.log(err));
 
-        setTextBoxes()
+        //setTextBoxes()
+        $(".pit-row").show();
+        $(".submit-row").show();
     };
 
     </script>
