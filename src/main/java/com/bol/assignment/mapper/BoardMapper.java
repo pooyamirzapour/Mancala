@@ -5,7 +5,9 @@ import com.bol.assignment.msg.GameStatusMsg;
 import org.mapstruct.*;
 
 /**
+ * BoardMapper for converting board to client's message..
  *
+ * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BoardMapper {
