@@ -46,7 +46,7 @@ public class SingleBrowserController {
         log.info("A new single browser game request received");
         Board board = kalahService.newGame();
         KalahGameMsg kalahGameMsg = KalahGameMsg.builder().gameId(board.getId()).build();
-        kalahGameMsg.setUrl(gameUtil.getGameUrl(kalahGameMsg.getGameId()));
+        kalahGameMsg.setUrl(gameUtil.getSingleGameUrl(kalahGameMsg.getGameId()));
         log.info("A new single browser game successfully started. gameId: %d , url: %s", kalahGameMsg.getGameId(), kalahGameMsg.getUrl());
         return kalahGameMsg;
     }
