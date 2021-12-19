@@ -1,7 +1,7 @@
 # Build and Run
 Build and Run DockerFile in "BolAssignment" folder by create an image:
 
-docker build -f Dockerfile -t Mancala .
+docker build -f Dockerfile -t mancala .
 ## to see images:
 ```
 docker images

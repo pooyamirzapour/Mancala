@@ -7,6 +7,6 @@ RUN mvn package
 
 FROM adoptopenjdk/openjdk11
 COPY --from=build /app/target/Mancala-0.0.1-SNAPSHOT.jar /app/Mancala-0.0.1.jar
-EXPOSE 8086
+EXPOSE 8087
 ENTRYPOINT ["java","-jar","/app/Mancala-0.0.1.jar"]
 
