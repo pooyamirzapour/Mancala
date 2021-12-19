@@ -26,8 +26,8 @@ public class GameUtil {
     public final static int PIT_COUNT = 6;
     public final static int PLAYER_ONE = 0;
     public final static int PLAYER_TWO = 1;
-    public final static int PIT_FOR_PLAYER = PIT_COUNT + 1;
-    public final static int TOTAL_PIT_COUNT = PIT_FOR_PLAYER * 2;
+    public final static int KALAH_ONE = PIT_COUNT + 1;
+    public final static int TOTAL_PIT_COUNT = KALAH_ONE * 2;
     public final static int SUPPORTED_PLAYER_NUMBER=2;
     public final static int STARTED_PIT_FOR_PLAYER_ONE=1;
     public final static int STARTED_PIT_FOR_PLAYER_TWO=8;

@@ -108,7 +108,7 @@ public class MoveRuleServiceImpl implements MoveRuleService {
     }
 
     private boolean isKalah(int pitId) {
-        return (pitId % GameUtil.PIT_FOR_PLAYER) == 0;
+        return (pitId % GameUtil.KALAH_ONE) == 0;
     }
 
     private int getNextPitId(int currentPitId, Player currentPlayer) {

@@ -23,7 +23,7 @@ public class Player extends BaseEntity {
      * @param start the player index
      */
     public Player(int start) {
-        startPitNumber = start * GameUtil.PIT_FOR_PLAYER + 1;
+        startPitNumber = start * GameUtil.KALAH_ONE + 1;
         if (start==0)
             turn=true;
     }
