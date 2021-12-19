@@ -14,7 +14,7 @@ For more details please see the below links:
 [SseEmitter]https://www.baeldung.com/spring-mvc-sse-streams
 
 ## Implementation
-The move rules of the game have been implemented in ***MoveRuleServiceImpl*** class in different methods,
+The move rules of the game have been implemented in ***MoveRuleServiceImpl*** class with different methods,
 and in the ***SingleKalahServiceImpl*** and ***MultiKalahServiceImpl*** classes these methods and rules 
 have been orchestrated. If you wish change one of rules or some, you can define your implementation of ***MoveRuleService***
 and with the help of ***@Qualifier*** use your own rules.(That is the ***Open Close Principle of SOLID***)
