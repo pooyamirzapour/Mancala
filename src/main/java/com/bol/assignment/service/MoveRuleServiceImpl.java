@@ -52,7 +52,7 @@ public class MoveRuleServiceImpl implements MoveRuleService {
     @Override
     public void collectAll(Board board) {
         if (gameIsOver(board.getPitsMap(), board.getCurrentPlayer())) {
-            log.info(String.format("Game is over with gameId: %s", board));
+            log.info(String.format("Game is over for Board: %s", board));
             board.setIsOver(true);
             gatherOpponentRemainingStone(board);
         }
@@ -118,7 +118,6 @@ public class MoveRuleServiceImpl implements MoveRuleService {
     }
 
     private boolean canCatchFrontStones(Board board, int currentPitId) {
-
         int oppositeSidePitId = getFrontPitId(currentPitId);
         return isOwnPit(currentPitId, board.getCurrentPlayer()) &&
                 board.getPitsMap().get(board.getLastPlacedPit()) == 1 &&
