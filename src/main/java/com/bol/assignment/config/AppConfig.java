@@ -25,4 +25,13 @@ class AppConfig {
     public String getGamePath() {
         return env.getRequiredProperty("game.path");
     }
+
+
+    /**
+     * Get path for single browser game from environment.
+     * @returna path string.
+     */
+    public String getGameSinglePath() {
+        return env.getRequiredProperty("game.single.path");
+    }
 }

@@ -68,7 +68,7 @@ public class SingleBrowserController {
         log.info(String.format("A move is requested with these parameters: gameId: %d , pitId: %d ", gameId, pitId));
 
         GameStatusMsg gameStatusMsg = boardMapper.toGameStatusMsg(kalahService.move(gameId, pitId));
-        gameStatusMsg.setUrl(gameUtil.getGameUrl(gameId));
+        gameStatusMsg.setUrl(gameUtil.getSingleGameUrl(gameId));
         return gameStatusMsg;
 
     }
