@@ -22,7 +22,7 @@ public class GameStatusMsg implements Serializable {
 
     @ApiModelProperty(notes = "Unique identifier of the game.", example = "1")
     @JsonProperty("id")
-    private int gameId;
+    private String gameId;
 
     @ApiModelProperty(notes = "Unique identifier of the player who turns.", example = "1")
     private int playerId;
@@ -36,7 +36,7 @@ public class GameStatusMsg implements Serializable {
     @JsonProperty("status")
     private Map<Integer, Integer> pitsMap_playerOne;
 
-    public GameStatusMsg(int gameId) {
+    public GameStatusMsg(String gameId) {
         this.gameId = gameId;
     }
 

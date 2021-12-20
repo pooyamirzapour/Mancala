@@ -47,7 +47,7 @@ public class SingleBrowserController {
         Board board = kalahService.newGame();
         KalahGameMsg kalahGameMsg = KalahGameMsg.builder().gameId(board.getId()).build();
         kalahGameMsg.setUrl(gameUtil.getSingleGameUrl(kalahGameMsg.getGameId()));
-        log.info("A new single browser game successfully started. gameId: %d , url: %s", kalahGameMsg.getGameId(), kalahGameMsg.getUrl());
+        log.info("A new single browser game successfully started. gameId: %s , url: %s", kalahGameMsg.getGameId(), kalahGameMsg.getUrl());
         return kalahGameMsg;
     }
 
@@ -63,9 +63,9 @@ public class SingleBrowserController {
     @PostMapping(value = "/{gameId}/pits/{pitId}")
     @ApiOperation("Performs a move from a specific pit and returns the latest status of the game.")
     public GameStatusMsg move(
-            @ApiParam("Identifier of the game.It Cannot be empty.") @NotNull @PathVariable("gameId") int gameId,
+            @ApiParam("Identifier of the game.It Cannot be empty.") @NotNull @PathVariable("gameId") String gameId,
             @ApiParam("Identifier of the selected pit.It Cannot be empty or be a kalah") @NotNull @PathVariable("pitId") int pitId) throws IOException {
-        log.info(String.format("A move is requested with these parameters: gameId: %d , pitId: %d ", gameId, pitId));
+        log.info(String.format("A move is requested with these parameters: gameId: %s , pitId: %d ", gameId, pitId));
 
         GameStatusMsg gameStatusMsg = boardMapper.toGameStatusMsg(kalahService.move(gameId, pitId));
         gameStatusMsg.setUrl(gameUtil.getSingleGameUrl(gameId));

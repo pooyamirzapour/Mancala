@@ -21,7 +21,7 @@ import java.io.Serializable;
 public class KalahGameMsg implements Serializable {
     @ApiModelProperty(notes = "Unique identifier of the game.", example = "1")
     @JsonProperty("id")
-    private int gameId;
+    private String gameId;
 
     @ApiModelProperty(notes = "Main URL of the game.", example = "http://localhost:8087/games/1", position = 1)
     @JsonProperty("url")

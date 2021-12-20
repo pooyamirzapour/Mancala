@@ -16,7 +16,4 @@ To develop of the project for the future it should be considered below:
    and exceptions are necessary, and it will be set up the relevant console and applications.
    
 
-5) Implementing web socket mechanism instead of SseEmitter.
-
-
-6) Providing diagrams like Activity, Class, and more needed documents.
+5) Providing diagrams like Activity, Class, and more needed documents.

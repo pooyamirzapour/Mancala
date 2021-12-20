@@ -19,7 +19,7 @@ public interface SingleKalahService {
      * @param pitId  identifier of the pit
      * @return an updated game board after move
      */
-    Board move(int gameId, int pitId);
+    Board move(String gameId, int pitId);
 
 
 }

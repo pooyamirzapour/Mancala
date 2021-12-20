@@ -40,8 +40,8 @@ public class SingleKalahServiceImpl implements SingleKalahService {
 
 
     @Override
-    public Board move(int gameId, int pitId) {
-        log.info(String.format("Start moving single browser. gameId: %d , pitId: %d ", gameId, pitId));
+    public Board move(String gameId, int pitId) {
+        log.info(String.format("Start moving single browser. gameId: %s , pitId: %d ", gameId, pitId));
 
         Optional<Board> optionalBoard = boardRepository.findById(gameId);
         Board board = moveRuleService.validate(optionalBoard, gameId, pitId);
@@ -51,7 +51,7 @@ public class SingleKalahServiceImpl implements SingleKalahService {
         moveRuleService.setTurn(board);
         board = boardRepository.save(board);
 
-        log.info(String.format("The move request successfully processed. gameId: %d , pitId: %d ", gameId, pitId));
+        log.info(String.format("The move request successfully processed. gameId: %s , pitId: %d ", gameId, pitId));
         return board;
     }
 

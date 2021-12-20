@@ -38,36 +38,36 @@ class MoveRuleServiceImplTest extends AbstractTest {
 
     @Test
     void should_throw_exception_when_pit_is_kalah() {
-        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), 1, 0));
+        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), "1", 0));
     }
 
     @Test
     void should_throw_exception_when_game_not_found() {
-        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.empty(), 2000, 1));
+        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.empty(), "2000", 1));
     }
 
     @Test
     void should_throw_exception_when_game_is_over() {
         board.setIsOver(true);
-        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), 1, 1));
+        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), "1", 1));
     }
 
     @Test
     void should_throw_exception_when_pit_is_not_yours() {
-        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), 1, 8));
+        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), "1", 8));
     }
 
     @Test
     void should_throw_exception_when_pit_is_empty() {
         ruleService.replace(board, 1);
         Assertions.assertEquals(0, board.getPitsMap().get(1));
-        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), 1, 1));
+        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), "1", 1));
     }
 
     @Test
     void should_throw_exception_when_pit_is_invalid() {
         board.setPitsMap(null);
-        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), 1, 1));
+        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), "1", 1));
     }
 
     @Test

@@ -53,6 +53,6 @@ public interface MoveRuleService {
      * @param pitId
      * @return an instance of Board
      */
-    Board validate(Optional<Board> optionalBoard, int gameId, int pitId);
+    Board validate(Optional<Board> optionalBoard, String gameId, int pitId);
 
 }

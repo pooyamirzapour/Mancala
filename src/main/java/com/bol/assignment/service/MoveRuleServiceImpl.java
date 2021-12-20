@@ -77,7 +77,7 @@ public class MoveRuleServiceImpl implements MoveRuleService {
     }
 
     @Override
-    public Board validate(Optional<Board> optionalBoard, int gameId, int pitId) {
+    public Board validate(Optional<Board> optionalBoard, String gameId, int pitId) {
         if (!optionalBoard.isPresent())
             throw new ServiceException(ErrorCode.GAME_NOT_FOUND, String.valueOf(gameId));
 

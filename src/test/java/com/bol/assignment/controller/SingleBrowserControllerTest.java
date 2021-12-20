@@ -38,10 +38,10 @@ class SingleBrowserControllerTest extends AbstractTest {
     }
 
     @Test
-    void should_update_game_boad_when_player_move() {
+    void should_update_game_board_when_player_move() {
         ResponseEntity<KalahGameMsg> kalahGameMsgResponseEntity = newGame();
 
-        String uri = String.format("http://localhost:%s/api/v1/games/single/%d/pits/%d", localPort,
+        String uri = String.format("http://localhost:%s/api/v1/games/single/%s/pits/%d", localPort,
                 kalahGameMsgResponseEntity.getBody().getGameId(), 1);
 
         HttpHeaders headers = new HttpHeaders();

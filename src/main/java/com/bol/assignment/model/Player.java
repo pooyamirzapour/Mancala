@@ -3,8 +3,9 @@ package com.bol.assignment.model;
 import com.bol.assignment.util.GameUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
 
 /**
  * Player is an entity class hold players.
@@ -12,9 +13,12 @@ import javax.persistence.Entity;
  */
 
 @Data
-@Entity
 @AllArgsConstructor
-public class Player extends BaseEntity {
+public class Player  {
+
+    @Id
+    private int id;
+
     private Boolean turn=false;
     private int startPitNumber;
 

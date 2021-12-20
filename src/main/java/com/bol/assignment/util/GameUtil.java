@@ -32,11 +32,11 @@ public class GameUtil {
     public final static int STARTED_PIT_FOR_PLAYER_ONE=1;
     public final static int STARTED_PIT_FOR_PLAYER_TWO=8;
 
-    public String getSingleGameUrl(int gameId) {
+    public String getSingleGameUrl(String gameId) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(appConfig.getGameSinglePath()).buildAndExpand(gameId).toUriString();
     }
 
-    public String getGameUrl(int gameId) {
+    public String getGameUrl(String gameId) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(appConfig.getGamePath()).buildAndExpand(gameId).toUriString();
     }
 }

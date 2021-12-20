@@ -46,10 +46,10 @@ public class MultiKalahServiceImpl implements MultiKalahService {
     }
 
     @Override
-    public void joinToGame(int gameId, SseEmitter sseEmitter) {
+    public void joinToGame(String gameId, SseEmitter sseEmitter) {
         log.info("Join to a game");
 
-        Optional<Board> optionalBoard = boardRepository.findById(gameId);
+        Optional<Board> optionalBoard = boardRepository.findById( gameId);
         if (optionalBoard.isEmpty())
             throw new ServiceException(ErrorCode.GAME_NOT_FOUND, String.valueOf(gameId));
 
@@ -67,8 +67,8 @@ public class MultiKalahServiceImpl implements MultiKalahService {
 
 
     @Override
-    public void move(int gameId, int pitId) {
-        log.info(String.format("Start moving. gameId: %d , pitId: %d ", gameId, pitId));
+    public void move(String gameId, int pitId) {
+        log.info(String.format("Start moving. gameId: %s , pitId: %d ", gameId, pitId));
 
         Optional<Board> optionalBoard = boardRepository.findById(gameId);
         Board board = moveRuleService.validate(optionalBoard, gameId, pitId);
@@ -80,7 +80,7 @@ public class MultiKalahServiceImpl implements MultiKalahService {
 
         notificationService.sendToClients(board);
 
-        log.info(String.format("The move request successfully processed. gameId: %d , pitId: %d ", gameId, pitId));
+        log.info(String.format("The move request successfully processed. gameId: %s , pitId: %d ", gameId, pitId));
     }
 
 

@@ -23,7 +23,7 @@ public interface MultiKalahService {
      * @param gameId
      * @return an existing instance of Board
      */
-    void joinToGame(int gameId,SseEmitter sseEmitter) ;
+    void joinToGame(String gameId,SseEmitter sseEmitter) ;
 
 
     /**
@@ -32,7 +32,7 @@ public interface MultiKalahService {
      * @param gameId identifier of the game
      * @param pitId  identifier of the pit
      */
-    void move(int gameId, int pitId);
+    void move(String gameId, int pitId);
 
 
 }

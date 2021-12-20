@@ -44,7 +44,7 @@ class MultipleBrowserControllerTest extends AbstractTest {
     }
 
     private ResponseEntity<Resource> joinToGame(ResponseEntity<KalahGameMsg> kalahGameMsgResponseEntity) {
-        String uri = String.format("http://localhost:%s/api/v1/games/join/%d", localPort, kalahGameMsgResponseEntity.getBody().getGameId());
+        String uri = String.format("http://localhost:%s/api/v1/games/join/%s", localPort, kalahGameMsgResponseEntity.getBody().getGameId());
         return restTemplate.getForEntity(uri, Resource.class);
     }
 
@@ -52,7 +52,7 @@ class MultipleBrowserControllerTest extends AbstractTest {
     void should_update_game_boad_when_player_move() {
         ResponseEntity<KalahGameMsg> kalahGameMsgResponseEntity = newGame();
 
-        String uri = String.format("http://localhost:%s/api/v1/games/%d/pits/%d", localPort,
+        String uri = String.format("http://localhost:%s/api/v1/games/%s/pits/%d", localPort,
                 kalahGameMsgResponseEntity.getBody().getGameId(), 1);
 
         HttpHeaders headers = new HttpHeaders();

@@ -3,10 +3,14 @@ package com.bol.assignment.model;
 import com.bol.assignment.msg.GameStatusMsg;
 import com.bol.assignment.util.GameUtil;
 import lombok.Data;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Board is an entity class hold the game last status.
@@ -15,27 +19,15 @@ import java.util.Map;
  */
 
 @Data
-@Entity
-public class Board extends BaseEntity {
+@Document
+public class Board {
 
-    @MapKeyColumn(name = "ID")
-
-    @Column(name = "STONE")
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PIT", joinColumns = @JoinColumn(name = "BOARD_ID"))
+    @Id
+    private String id=UUID.randomUUID().toString();
     private Map<Integer, Integer> pitsMap;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PLAYER_ONE_ID")
     private Player playerOne;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PLAYER_TWO_ID")
     private Player playerTwo;
-
     private Boolean isOver;
-
     @Transient
     private int lastPlacedPit;
 
@@ -61,7 +53,7 @@ public class Board extends BaseEntity {
     }
 
     public GameStatusMsg getGameStatusMsg() {
-        GameStatusMsg gameStatusMsg = new GameStatusMsg(this.getId());
+        GameStatusMsg gameStatusMsg = new GameStatusMsg(  this.getId());
         gameStatusMsg.setPitsMap_playerOne(this.getPitsMap());
 
         if (playerOne.getTurn()) {

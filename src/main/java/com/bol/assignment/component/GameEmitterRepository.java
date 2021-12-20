@@ -19,14 +19,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 public class GameEmitterRepository {
-	Map<Integer, List<SseEmitter>> players = new ConcurrentHashMap<>();
+	Map<String, List<SseEmitter>> players = new ConcurrentHashMap<>();
 
 	/**
 	 * Keeps the SseEmitter in the map.
 	 * @param gameId
 	 * @param sseEmitter
 	 */
-	public void put(Integer gameId, SseEmitter sseEmitter) {
+	public void put(String gameId, SseEmitter sseEmitter) {
 		List<SseEmitter> sseEmitters = players.get(gameId);
 
 		if (Objects.isNull(sseEmitters)) {
@@ -41,7 +41,7 @@ public class GameEmitterRepository {
 	 * @param gameId
 	 * @return a list of SseEmitter.
 	 */
-	public List<SseEmitter> get(Integer gameId) {
+	public List<SseEmitter> get(String gameId) {
 		return players.get(gameId);
 	}
 

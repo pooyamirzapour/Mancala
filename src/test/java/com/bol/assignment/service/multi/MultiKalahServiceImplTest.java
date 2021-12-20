@@ -38,7 +38,7 @@ class MultiKalahServiceImplTest extends AbstractTest {
     @Test
     void should_throw_exception_when_gameId_is_invalid() {
         SseEmitter sseEmitter = new SseEmitter();
-        Assertions.assertThrows(ServiceException.class, () -> kalahService.joinToGame(2, sseEmitter));
+        Assertions.assertThrows(ServiceException.class, () -> kalahService.joinToGame("2", sseEmitter));
     }
 
     @Test
@@ -53,7 +53,7 @@ class MultiKalahServiceImplTest extends AbstractTest {
 
         Assertions.assertEquals(sseEmitter, sseEmitters.get(0));
         Assertions.assertEquals(sseEmitter2, sseEmitters.get(1));
-        Assertions.assertThrows(ServiceException.class, () -> kalahService.joinToGame(1, sseEmitter));
+        Assertions.assertThrows(ServiceException.class, () -> kalahService.joinToGame("1", sseEmitter));
     }
 
 

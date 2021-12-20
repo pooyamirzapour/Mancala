@@ -47,7 +47,7 @@ public class MultipleBrowserController {
         Board board = multiKalahService.newGame();
         KalahGameMsg kalahGameMsg = KalahGameMsg.builder().gameId(board.getId()).build();
         kalahGameMsg.setUrl(gameUtil.getGameUrl(kalahGameMsg.getGameId()));
-        log.info("A new game successfully started. gameId: %d , url: %s", kalahGameMsg.getGameId(), kalahGameMsg.getUrl());
+        log.info("A new game successfully started. gameId: %s , url: %s", kalahGameMsg.getGameId(), kalahGameMsg.getUrl());
         return kalahGameMsg;
     }
 
@@ -61,11 +61,11 @@ public class MultipleBrowserController {
     @GetMapping(value = "/join/{gameId}")
     @ApiOperation("Join to a game Kalah game.")
     @CrossOrigin
-    public SseEmitter joinToGame(@NotNull @PathVariable("gameId") int gameId) throws IOException {
+    public SseEmitter joinToGame(@NotNull @PathVariable("gameId") String gameId) throws IOException {
         log.info("Join to a new game request received");
         SseEmitter sseEmitter = new SseEmitter();
         multiKalahService.joinToGame(gameId, sseEmitter);
-        log.info("Join to a game successfully done. gameId: %d ", gameId);
+        log.info("Join to a game successfully done. gameId: %s ", gameId);
         return sseEmitter;
     }
 
@@ -80,11 +80,11 @@ public class MultipleBrowserController {
     @PostMapping(value = "/{gameId}/pits/{pitId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("Performs a move from a specific pit and returns the latest status of the game.")
     public ResponseEntity move(
-            @ApiParam("Identifier of the game.It Cannot be empty.") @NotNull @PathVariable("gameId") int gameId,
+            @ApiParam("Identifier of the game.It Cannot be empty.") @NotNull @PathVariable("gameId") String gameId,
             @ApiParam("Identifier of the selected pit.It Cannot be empty or be a kalah") @NotNull @PathVariable("pitId") int pitId) throws IOException {
-        log.info(String.format("A move is requested with these parameters: gameId: %d , pitId: %d ", gameId, pitId));
+        log.info(String.format("A move is requested with these parameters: gameId: %s , pitId: %d ", gameId, pitId));
         multiKalahService.move(gameId, pitId);
-        log.info(String.format("The move request successfully processed. gameId: %d , pitId: %d ", gameId, pitId));
+        log.info(String.format("The move request successfully processed. gameId: %s , pitId: %d ", gameId, pitId));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

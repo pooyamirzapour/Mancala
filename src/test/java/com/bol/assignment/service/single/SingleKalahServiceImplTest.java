@@ -29,7 +29,7 @@ class SingleKalahServiceImplTest extends AbstractTest {
 
     @Test
     void should_throw_exception_when_gameId_is_invalid() {
-        Assertions.assertThrows(ServiceException.class,()->singleKalahService.move(2, 1));
+        Assertions.assertThrows(ServiceException.class,()->singleKalahService.move("2", 1));
     }
 
     @Test
