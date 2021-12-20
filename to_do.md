@@ -1,8 +1,8 @@
 # to do
 To develop of the project for the future it should be considered below:
 
-1) Using a non in-memory database such as Mongo DB instead of H2 DB. (The H2 has been chosen
-   because is easy to config, and run that is proper for test and assignments.)
+1) Using an in-memory database like ***Redis*** on top of the DB to keep the status of the game instead of 
+   referring to database. Refer to disk is always consuming.
    
    
 2) For achieving horizontally scaling the ***Map*** in the ***GameEmitterRepository*** class must be changed to the ***Redis***.

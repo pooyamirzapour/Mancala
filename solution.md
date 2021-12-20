@@ -25,11 +25,11 @@ of ***MoveRuleService*** and with the help of ***@Qualifier*** use your own rule
 ## Technologies, Framework and Tools
 -	Java 11
 -	Spring Boot
--   Spring fox
--	H2 (in memory)
--	JUnit 5
 -	Maven
 -   Lombok
--   Docker
+-   Spring fox
+-	JUnit 5
 -   Map Structs
 -   SseEmitter
+-   Docker
+-	MongoDB
