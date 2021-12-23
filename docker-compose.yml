@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: bol_db
+    networks:
+      bol-network:
+  mancala:
+    depends_on:
+      - mongo
+    build:
+      context: .
+      dockerfile: "Dockerfile"
+    ports:
+      - "8087:8087"
+    networks:
+      bol-network:
+networks:
+  bol-network:
