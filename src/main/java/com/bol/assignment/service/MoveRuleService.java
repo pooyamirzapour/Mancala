@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface MoveRuleService {
 
     /**
-     * rearrange the board game based on a move
+     * Rearrange the board game based on a move
      *
      * @param board
      * @param pitId

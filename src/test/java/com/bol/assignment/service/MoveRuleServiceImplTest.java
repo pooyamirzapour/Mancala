@@ -38,7 +38,7 @@ class MoveRuleServiceImplTest extends AbstractTest {
 
     @Test
     void should_throw_exception_when_pit_is_kalah() {
-        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), "1", 0));
+        Assertions.assertThrows(ServiceException.class, () -> ruleService.validate(Optional.of(board), "1", 7));
     }
 
     @Test
