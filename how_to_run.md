@@ -7,10 +7,7 @@ docker-compose up .
 ```
 docker images
 ```
-## to run the image:
-```
-docker run -p 8087:8087 mancala
-```
+
 ## to see all container:
 ```
 docker container ls
@@ -28,12 +25,17 @@ docker container rm ${container ID}
 ## Run
 This project can be run by two ways:
 1.	Run com.bol.assignment.AssignmentApplication class from your IDE.
-2.	Run this command in "BolAssignment" folder by
+2.	Run this command in "BolAssignment" folder by:
       ```
       mvn package
       ```
-and then run:
-java -jar /target/Mancala-0.0.1-SNAPSHOT.jar
+      and then run:
+      
+      `
+      java -jar /target/Mancala-0.0.1-SNAPSHOT.jar
+      `
+      
+
 
 Web service URL to start a new game on a single browser **http://localhost:8087/api/v1/games/single**
 
