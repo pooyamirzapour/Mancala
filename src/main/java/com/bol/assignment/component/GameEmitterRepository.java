@@ -19,35 +19,41 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 public class GameEmitterRepository {
-	Map<String, List<SseEmitter>> players = new ConcurrentHashMap<>();
+    Map<String, List<SseEmitter>> players = new ConcurrentHashMap<>();
 
-	/**
-	 * Keeps the SseEmitter in the map.
-	 * @param gameId
-	 * @param sseEmitter
-	 */
-	public void put(String gameId, SseEmitter sseEmitter) {
-		List<SseEmitter> sseEmitters = players.get(gameId);
+    /**
+     * Keeps the SseEmitter in the map.
+     *
+     * @param gameId
+     * @param sseEmitter
+     */
+    public void put(String gameId, SseEmitter sseEmitter) {
+        List<SseEmitter> sseEmitters = players.get(gameId);
 
-		if (Objects.isNull(sseEmitters)) {
-			sseEmitters = new ArrayList<>();
-		}
-		sseEmitters.add(sseEmitter);
-		players.put(gameId, sseEmitters);
-	}
+        if (Objects.isNull(sseEmitters)) {
+            sseEmitters = new ArrayList<>();
+        }
+        sseEmitters.add(sseEmitter);
+        players.put(gameId, sseEmitters);
+    }
 
-	/**
-	 * A list of SseEmitter based on gameId.
-	 * @param gameId
-	 * @return a list of SseEmitter.
-	 */
-	public List<SseEmitter> get(String gameId) {
-		return players.get(gameId);
-	}
+    /**
+     * A list of SseEmitter based on gameId.
+     *
+     * @param gameId
+     * @return a list of SseEmitter.
+     */
+    public List<SseEmitter> get(String gameId) {
+        return players.get(gameId);
+    }
 
-	public void clear() {
-		 players.clear();
-	}
+    public void remove(String gameId) {
+        players.remove(gameId);
+    }
+
+    public void clear() {
+        players.clear();
+    }
 
 
 }

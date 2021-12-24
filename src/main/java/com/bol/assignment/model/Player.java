@@ -29,8 +29,11 @@ public class Player {
      */
     public Player(int start) {
         startPitNumber = start * GameUtil.KALAH_ONE + 1;
-        if (start == 0)
+        if (start == 0) {
             turn = true;
+            id = 1;
+        } else
+            id = 2;
     }
 
     public Player() {

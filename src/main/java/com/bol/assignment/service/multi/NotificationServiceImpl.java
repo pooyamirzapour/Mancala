@@ -38,6 +38,10 @@ public class NotificationServiceImpl implements NotificationService {
                         } catch (Throwable e) {
                             log.info("IO exception while emitting the board.");
                             mySseEmitter.completeWithError(e);
+                        } finally {
+                            if (board.getIsOver()) {
+                                gameEmitterRepository.remove(board.getId());
+                            }
                         }
                     });
             log.info("Send to client completed.");

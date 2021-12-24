@@ -53,13 +53,13 @@ public class Board {
     }
 
     public GameStatusMsg getGameStatusMsg() {
-        GameStatusMsg gameStatusMsg = new GameStatusMsg(  this.getId());
+        GameStatusMsg gameStatusMsg = new GameStatusMsg(this.getId());
         gameStatusMsg.setPitsMap_playerOne(this.getPitsMap());
 
         if (playerOne.getTurn()) {
-            gameStatusMsg.setPlayerId(this.playerOne.getId());
+            gameStatusMsg.setPlayerId(1);
         } else {
-            gameStatusMsg.setPlayerId(this.playerTwo.getId());
+            gameStatusMsg.setPlayerId(2);
         }
         return gameStatusMsg;
     }
