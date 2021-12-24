@@ -1,7 +1,7 @@
 # Build and Run
-Build and Run DockerFile in "BolAssignment" folder by create an image:
+Build and Run DockerCompose in root folder, it runs an instance of mongo:
 ```
-docker build -f Dockerfile -t mancala .
+docker-compose up .
 ```
 ## to see images:
 ```
@@ -26,10 +26,9 @@ docker container rm ${container ID}
 
 
 ## Run
-This project can be run by three ways:
-1.  Run the docker image on port 8087 (or every available port)
-2.	Run com.bol.assignment.AssignmentApplication class from your IDE.
-3.	Run this command in "BolAssignment" folder by
+This project can be run by two ways:
+1.	Run com.bol.assignment.AssignmentApplication class from your IDE.
+2.	Run this command in "BolAssignment" folder by
       ```
       mvn package
       ```
