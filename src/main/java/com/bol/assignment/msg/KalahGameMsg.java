@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 /**
  * Game class which hold id of kalah game
+ *
  * @author Pooya Mirzapour (pooyamirzaapour@gmail.com)
  */
 @JsonPropertyOrder({"id", "url"})
@@ -19,11 +20,11 @@ import java.io.Serializable;
 @Data
 @Builder
 public class KalahGameMsg implements Serializable {
-    @ApiModelProperty(notes = "Unique identifier of the game.", example = "1")
+    @ApiModelProperty(notes = "Unique identifier of the game.", example = "6bbac0ee-715d-44df-8353-3fdd6dca18bc")
     @JsonProperty("id")
     private String gameId;
 
-    @ApiModelProperty(notes = "Main URL of the game.", example = "http://localhost:8087/games/1", position = 1)
+    @ApiModelProperty(notes = "Main URL of the game.", example = "http://127.0.0.1:8087/api/v1/games/single/6bbac0ee-715d-44df-8353-3fdd6dca18bc", position = 1)
     @JsonProperty("url")
     private String url;
 }

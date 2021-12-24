@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 /**
  * error message class
+ *
  * @author Pooya Mirzapour (pooyamirzapour@gmail.com)
  */
 

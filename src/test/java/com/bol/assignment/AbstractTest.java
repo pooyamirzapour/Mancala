@@ -33,7 +33,7 @@ public class AbstractTest {
 
     @Container
     @ClassRule
-    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:4.4.2")
+    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest")
             .withExposedPorts(27017);
 
     @DynamicPropertySource
