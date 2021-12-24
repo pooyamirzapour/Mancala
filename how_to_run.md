@@ -1,11 +1,11 @@
 # Build and Run
 Build and Run DockerCompose in root folder, it runs an instance of mongo:
 ```
-docker-compose up .
+docker-compose up 
 ```
 ## to see images:
 ```
-docker images
+docker image ls
 ```
 
 ## to see all container:
@@ -23,7 +23,7 @@ docker container rm ${container ID}
 
 
 ## Run
-This project can be run by two ways:
+This project can be run by two ways, please note that first, the MongoDB should be run on your Docker:
 1.	Run com.bol.assignment.AssignmentApplication class from your IDE.
 2.	Run this command in "BolAssignment" folder by:
       ```
