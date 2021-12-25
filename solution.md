@@ -18,7 +18,8 @@ The move rules of the game have been implemented in ***MoveRuleServiceImpl*** cl
 and in the ***SingleKalahServiceImpl*** and ***MultiKalahServiceImpl*** classes these methods and rules have been 
 ordered and orchestrated. (That is based on ***Method Abstraction Levels*** in ***Clean Code*** book by ***Robert Martin***).
 If you wish change one of the rules or some, you can define your implementation 
-of ***MoveRuleService*** and with the help of ***@Qualifier*** use your own rules. (That is the ***Open Close Principle of SOLID***)
+of ***MoveRuleService*** and with the help of ***@Qualifier*** or ***@Primary*** use your own rules.
+(That is the ***Open Close Principle of SOLID***)
 
 
 
