@@ -53,7 +53,7 @@ class MultiKalahServiceImplTest extends AbstractTest {
 
         Assertions.assertEquals(sseEmitter, sseEmitters.get(0));
         Assertions.assertEquals(sseEmitter2, sseEmitters.get(1));
-        Assertions.assertThrows(ServiceException.class, () -> kalahService.joinToGame("1", sseEmitter));
+        Assertions.assertThrows(ServiceException.class, () -> kalahService.joinToGame(board.getId(), sseEmitter));
     }
 
 
