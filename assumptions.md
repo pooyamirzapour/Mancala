@@ -1,5 +1,5 @@
 ## Assumptions
-1) Games should persist in the database.
+1) Games and any status of that should persist in the database.
    
 2) The architecture is microservice style.
 
