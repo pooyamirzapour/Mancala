@@ -47,8 +47,6 @@ Web service URL to move from a pit on single browser **http://localhost:8087/api
 
 Web service URL to move from a pit on multiple browser **http://localhost:8087/api/v1/games/{gameId}/pits/{pitId}**
 
-H2 console **http://localhost:8090/h2**
-
 
 After running the project it can be used by any rest client or swagger.
 You can open Swagger by this link: **http://localhost:8087/swagger-ui.html**
